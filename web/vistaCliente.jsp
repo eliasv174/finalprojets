@@ -42,23 +42,27 @@
                         <input type="text" class="form-control" name="apellidos" id="apellidos" required>
                     </div>
                     <div class="mb-3">
-                        <label for="NIT" class="form-label">NIT</label>
-                        <input type="text" class="form-control" name="NIT" id="NIT" required>
+                        <label for="nit" class="form-label">NIT</label>
+                        <input type="text" class="form-control" name="nit" id="nit" required>
                     </div>
                     <div class="mb-3">
                         <label for="genero" class="form-label">Género</label>
-<select class="form-control" name="genero" id="genero" required>
-    <option value="true">Masculino</option>
-    <option value="false">Femenino</option>
-</select>
+                        <select class="form-control" name="genero" id="genero" required>
+                            <option value="true">Masculino</option>
+                            <option value="false">Femenino</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="telefono" class="form-label">Teléfono</label>
                         <input type="text" class="form-control" name="telefono" id="telefono" required>
                     </div>
                     <div class="mb-3">
-                        <label for="correo_electronico" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" name="correo_electronico" id="correo_electronico" required>
+                        <label for="correoElectronico" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" name="correoElectronico" id="correoElectronico" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaIngreso" class="form-label">Fecha de Ingreso</label>
+                        <input type="datetime-local" class="form-control" name="fechaIngreso" id="fechaIngreso" required>
                     </div>
                     <button type="submit" name="accion" value="agregar" class="btn btn-primary">Agregar Cliente</button>
                     <button type="submit" name="accion" value="actualizar" class="btn btn-warning">Actualizar Cliente</button>
@@ -82,6 +86,7 @@
                             <th>Género</th>
                             <th>Teléfono</th>
                             <th>Correo Electrónico</th>
+                            <th>Fecha de Ingreso</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -95,17 +100,18 @@
                                 <td><%= cliente.getIdCliente() %></td>
                                 <td><%= cliente.getNombres() %></td>
                                 <td><%= cliente.getApellidos() %></td>
-                                <td><%= cliente.getNIT() %></td>
+                                <td><%= cliente.getNit() %></td>
                                 <td><%= cliente.isGenero() ? "Masculino" : "Femenino" %></td>
                                 <td><%= cliente.getTelefono() %></td>
                                 <td><%= cliente.getCorreoElectronico() %></td>
+                                <td><%= cliente.getFechaIngreso() %></td>
                                 <td>
                                     <form action="ClienteControlador" method="post" style="display:inline;">
-    <input type="hidden" name="accion" value="eliminar">
-    <input type="hidden" name="idCliente" value="<%= cliente.getIdCliente() %>">
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-</form>
-                                    <button class="btn btn-info" onclick="editarCliente(<%= cliente.getIdCliente() %>, '<%= cliente.getNombres() %>', '<%= cliente.getApellidos() %>', '<%= cliente.getNIT() %>', <%= cliente.isGenero() %>, '<%= cliente.getTelefono() %>', '<%= cliente.getCorreoElectronico() %>')">Editar</button>
+                                        <input type="hidden" name="accion" value="eliminar">
+                                        <input type="hidden" name="idCliente" value="<%= cliente.getIdCliente() %>">
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                    <button class="btn btn-info" onclick="editarCliente(<%= cliente.getIdCliente() %>, '<%= cliente.getNombres() %>', '<%= cliente.getApellidos() %>', '<%= cliente.getNit() %>', <%= cliente.isGenero() %>, '<%= cliente.getTelefono() %>', '<%= cliente.getCorreoElectronico() %>', '<%= cliente.getFechaIngreso() %>')">Editar</button>
                                 </td>
                             </tr>
                         <%
@@ -119,14 +125,15 @@
     </div>
 
     <script>
-        function editarCliente(id, nombres, apellidos, NIT, genero, telefono, correoElectronico) {
+        function editarCliente(id, nombres, apellidos, nit, genero, telefono, correoElectronico, fechaIngreso) {
             document.getElementById('idCliente').value = id;
             document.getElementById('nombres').value = nombres;
             document.getElementById('apellidos').value = apellidos;
-            document.getElementById('NIT').value = NIT;
+            document.getElementById('nit').value = nit;
             document.getElementById('genero').value = genero;
             document.getElementById('telefono').value = telefono;
-            document.getElementById('correo_electronico').value = correoElectronico;
+            document.getElementById('correoElectronico').value = correoElectronico;
+            document.getElementById('fechaIngreso').value = fechaIngreso;
         }
     </script>
 

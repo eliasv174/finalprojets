@@ -4,7 +4,7 @@
  */
 package modelo;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -12,26 +12,27 @@ import java.util.Date;
  */
 
 
+
 public class Cliente {
     private int idCliente;
     private String nombres;
     private String apellidos;
-    private String NIT;
+    private String nit;
     private boolean genero;
     private String telefono;
     private String correoElectronico;
-    private Date fechaIngreso;
+    private LocalDateTime fechaIngreso;
 
     // Constructor vacío
     public Cliente() {
     }
 
     // Constructor con parámetros
-    public Cliente(int idCliente, String nombres, String apellidos, String NIT, boolean genero, String telefono, String correoElectronico, Date fechaIngreso) {
+    public Cliente(int idCliente, String nombres, String apellidos, String nit, boolean genero, String telefono, String correoElectronico, LocalDateTime fechaIngreso) {
         this.idCliente = idCliente;
         this.nombres = nombres;
         this.apellidos = apellidos;
-        this.NIT = NIT;
+        this.nit = nit;
         this.genero = genero;
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
@@ -63,12 +64,12 @@ public class Cliente {
         this.apellidos = apellidos;
     }
 
-    public String getNIT() {
-        return NIT;
+    public String getNit() {
+        return nit;
     }
 
-    public void setNIT(String NIT) {
-        this.NIT = NIT;
+    public void setNit(String nit) {
+        this.nit = nit;
     }
 
     public boolean isGenero() {
@@ -95,11 +96,11 @@ public class Cliente {
         this.correoElectronico = correoElectronico;
     }
 
-    public Date getFechaIngreso() {
+    public LocalDateTime getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(LocalDateTime fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 }

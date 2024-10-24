@@ -17,18 +17,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-
-
 /**
- *
  * @author yeymi
  */
-
-
 @WebServlet(name = "ClienteControlador", urlPatterns = {"/ClienteControlador"})
 public class ClienteControlador extends HttpServlet {
     private Connection conexion;
@@ -55,13 +50,13 @@ public class ClienteControlador extends HttpServlet {
                     case "agregar":
                         String nombres = request.getParameter("nombres");
                         String apellidos = request.getParameter("apellidos");
-                        String NIT = request.getParameter("NIT");
+                        String nit = request.getParameter("nit");
                         boolean genero = Boolean.parseBoolean(request.getParameter("genero"));
                         String telefono = request.getParameter("telefono");
-                        String correoElectronico = request.getParameter("correo_electronico");
-                        Date fechaIngreso = new Date();
+                        String correoElectronico = request.getParameter("correoElectronico");
+                        LocalDateTime fechaIngreso = LocalDateTime.now();
 
-                        agregarCliente(new Cliente(0, nombres, apellidos, NIT, genero, telefono, correoElectronico, fechaIngreso));
+                        agregarCliente(new Cliente(0, nombres, apellidos, nit, genero, telefono, correoElectronico, fechaIngreso));
                         mensaje = "Cliente agregado exitosamente.";
                         break;
                     case "eliminar":
@@ -78,13 +73,13 @@ public class ClienteControlador extends HttpServlet {
                         if (clienteExistente != null) {
                             nombres = request.getParameter("nombres");
                             apellidos = request.getParameter("apellidos");
-                            NIT = request.getParameter("NIT");
+                            nit = request.getParameter("nit");
                             genero = Boolean.parseBoolean(request.getParameter("genero"));
                             telefono = request.getParameter("telefono");
-                            correoElectronico = request.getParameter("correo_electronico");
-                            fechaIngreso = new Date();
+                            correoElectronico = request.getParameter("correoElectronico");
+                            fechaIngreso = LocalDateTime.now();
 
-                            Cliente clienteActualizado = new Cliente(idCliente, nombres, apellidos, NIT, genero, telefono, correoElectronico, fechaIngreso);
+                            Cliente clienteActualizado = new Cliente(idCliente, nombres, apellidos, nit, genero, telefono, correoElectronico, fechaIngreso);
                             if (actualizarCliente(clienteActualizado)) {
                                 mensaje = "Cliente actualizado exitosamente.";
                             } else {
@@ -129,15 +124,15 @@ public class ClienteControlador extends HttpServlet {
     }
 
     private void agregarCliente(Cliente cliente) throws SQLException {
-        String sql = "INSERT INTO clientes (nombres, apellidos, NIT, genero, telefono, correo_electronico, fechaingreso) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO clientes (nombres, apellidos, nit, genero, telefono, correo_electronico, fechaingreso) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNombres());
             stmt.setString(2, cliente.getApellidos());
-            stmt.setString(3, cliente.getNIT());
+            stmt.setString(3, cliente.getNit());
             stmt.setBoolean(4, cliente.isGenero());
             stmt.setString(5, cliente.getTelefono());
             stmt.setString(6, cliente.getCorreoElectronico());
-            stmt.setDate(7, new java.sql.Date(cliente.getFechaIngreso().getTime()));
+            stmt.setObject(7, cliente.getFechaIngreso());
             stmt.executeUpdate();
         }
     }
@@ -152,11 +147,11 @@ public class ClienteControlador extends HttpServlet {
                         rs.getInt("idCliente"),
                         rs.getString("nombres"),
                         rs.getString("apellidos"),
-                        rs.getString("NIT"),
+                        rs.getString("nit"),
                         rs.getBoolean("genero"),
                         rs.getString("telefono"),
                         rs.getString("correo_electronico"),
-                        rs.getDate("fechaingreso")
+                        rs.getTimestamp("fechaingreso").toLocalDateTime()
                     );
                 }
             }
@@ -165,15 +160,15 @@ public class ClienteControlador extends HttpServlet {
     }
 
     private boolean actualizarCliente(Cliente cliente) throws SQLException {
-        String sql = "UPDATE clientes SET nombres = ?, apellidos = ?, NIT = ?, genero = ?, telefono = ?, correo_electronico = ?, fechaingreso = ? WHERE idCliente = ?";
+        String sql = "UPDATE clientes SET nombres = ?, apellidos = ?, nit = ?, genero = ?, telefono = ?, correo_electronico = ?, fechaingreso = ? WHERE idCliente = ?";
         try (PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setString(1, cliente.getNombres());
             stmt.setString(2, cliente.getApellidos());
-            stmt.setString(3, cliente.getNIT());
+            stmt.setString(3, cliente.getNit());
             stmt.setBoolean(4, cliente.isGenero());
             stmt.setString(5, cliente.getTelefono());
             stmt.setString(6, cliente.getCorreoElectronico());
-            stmt.setDate(7, new java.sql.Date(cliente.getFechaIngreso().getTime()));
+            stmt.setObject(7, cliente.getFechaIngreso());
             stmt.setInt(8, cliente.getIdCliente());
             return stmt.executeUpdate() > 0;
         }
@@ -197,11 +192,11 @@ public class ClienteControlador extends HttpServlet {
                     rs.getInt("idCliente"),
                     rs.getString("nombres"),
                     rs.getString("apellidos"),
-                    rs.getString("NIT"),
+                    rs.getString("nit"),
                     rs.getBoolean("genero"),
                     rs.getString("telefono"),
                     rs.getString("correo_electronico"),
-                    rs.getDate("fechaingreso")
+                    rs.getTimestamp("fechaingreso").toLocalDateTime()
                 );
                 lista.add(cliente);
             }
