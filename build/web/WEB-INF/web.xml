@@ -20,6 +20,10 @@
         <servlet-name>ProveedorControlador</servlet-name>
         <servlet-class>controlador.ProveedorControlador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarcaControlador</servlet-name>
+        <servlet-class>controlador.MarcaControlador</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginControlador</servlet-name>
         <url-pattern>/LoginControlador</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>ProveedorControlador</servlet-name>
         <url-pattern>/ProveedorControlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarcaControlador</servlet-name>
+        <url-pattern>/MarcaControlador</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

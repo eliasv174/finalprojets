@@ -6,9 +6,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="javax.servlet.http.HttpSession"%>
 <%
-    // Verificar si ya existe una sesión válida
+   
     if (session == null) {
-        response.sendRedirect("login.jsp"); // Redirigir si no hay sesión
+        response.sendRedirect("login.jsp");
         return;
     }
     Object usuario = session.getAttribute("usuario");
@@ -45,7 +45,7 @@
                     <a href="ComprasDetalleControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Compras Detalle</a>
                     <a href="PuestosControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Puestos</a>
                     <a href="VentasDetalleControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Ventas Detalle</a>
-                    <a href="MarcasControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Marcas</a>
+                    <a href="MarcaControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Marcas</a>
                 </div>
             </div>
             <div class="card-footer text-end">
