@@ -92,7 +92,7 @@
             <button type="submit">Iniciar Sesión</button>
         </form>
         
-        <!-- Mostrar mensaje de error si el login falla -->
+        
         <%
             if (request.getParameter("error") != null) {
         %>

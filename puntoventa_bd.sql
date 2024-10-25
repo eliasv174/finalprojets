@@ -32,7 +32,7 @@ CREATE TABLE `clientes` (
   `correo_electronico` varchar(45) DEFAULT NULL,
   `fechaingreso` datetime DEFAULT NULL,
   PRIMARY KEY (`idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (12,'yey','men','104699',_binary '','53849542','mendozayeymi16@gmail.com','2024-10-24 10:48:05'),(13,'yey','men','104699',_binary '','53849542','mendozayeymi16@gmail.com','2024-10-24 19:04:27');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +125,7 @@ CREATE TABLE `empleados` (
   PRIMARY KEY (`idEmpleado`),
   KEY `idPuesto` (`idPuesto`),
   CONSTRAINT `empleados_ibfk_1` FOREIGN KEY (`idPuesto`) REFERENCES `puestos` (`idPuesto`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +134,7 @@ CREATE TABLE `empleados` (
 
 LOCK TABLES `empleados` WRITE;
 /*!40000 ALTER TABLE `empleados` DISABLE KEYS */;
-INSERT INTO `empleados` VALUES (1,'Yeymi Jasmin','Mendoza G','lote 8','53849542','30109116',_binary '','2024-10-04',1,'2024-10-28','2024-10-19 20:15:00');
+INSERT INTO `empleados` VALUES (5,'marta','robles','lote 7 aldea el carmen','53849542','30109116',_binary '','2024-10-19',4,'2024-10-18','2024-10-18 14:23:00');
 /*!40000 ALTER TABLE `empleados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +149,7 @@ CREATE TABLE `marcas` (
   `idMarca` smallint NOT NULL AUTO_INCREMENT,
   `marca` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idMarca`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,7 +158,36 @@ CREATE TABLE `marcas` (
 
 LOCK TABLES `marcas` WRITE;
 /*!40000 ALTER TABLE `marcas` DISABLE KEYS */;
+INSERT INTO `marcas` VALUES (5,'Supercat');
 /*!40000 ALTER TABLE `marcas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menus`
+--
+
+DROP TABLE IF EXISTS `menus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `menus` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `padre_id` int DEFAULT NULL,
+  `enlace` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `padre_id` (`padre_id`),
+  CONSTRAINT `menus_ibfk_1` FOREIGN KEY (`padre_id`) REFERENCES `menus` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menus`
+--
+
+LOCK TABLES `menus` WRITE;
+/*!40000 ALTER TABLE `menus` DISABLE KEYS */;
+INSERT INTO `menus` VALUES (1,'Productos',NULL,'/ProductosControlador'),(2,'Ventas',NULL,'/VentasControlador'),(3,'Compras',NULL,'/ComprasControlador'),(4,'Reportes',NULL,'/ReportesControlador'),(5,'Marcas',1,'/MarcaControlador'),(6,'Clientes',2,'/ClienteControlador'),(7,'Empleados',2,'/EmpleadosControlador'),(8,'Proveedores',3,'/ProveedorControlador'),(9,'Puestos',7,'/PuestosControlador');
+/*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -206,7 +236,7 @@ CREATE TABLE `proveedores` (
   `direccion` varchar(80) DEFAULT NULL,
   `telefono` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`idProveedor`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +245,7 @@ CREATE TABLE `proveedores` (
 
 LOCK TABLES `proveedores` WRITE;
 /*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
-INSERT INTO `proveedores` VALUES (1,'mario','104699','lote 7 aldea el carmen','53849542'),(2,'mario','104699','lote 7 aldea el carmen','53849542'),(3,'mario ','10','lote 20 ','538495'),(4,'mario ','10','lote 20 ','538495'),(5,'mario ','10','lote 20 ','538495'),(6,'mario ','10','lote 20 ','538495'),(7,'mario ','10','lote 20 ','538495'),(8,'mario ','10','lote 20 ','538495'),(9,'mario ','10101','lote','586'),(10,'mario ','10101','lote','586'),(11,'mario ','10101','lote','586'),(12,'mario ','10101','lote','586'),(13,'mario ','10101','lote','586'),(14,'mario ','10101','lote','586'),(15,'karla','444','lote','57'),(16,'karla','444','lote','57'),(17,'karla','444','lote','57'),(18,'marta','88','lote 7 ','57'),(19,'marta','88','lote 7 ','57');
+INSERT INTO `proveedores` VALUES (30,'maca','46','lote','53849542');
 /*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,7 +260,7 @@ CREATE TABLE `puestos` (
   `idPuesto` smallint NOT NULL AUTO_INCREMENT,
   `puesto` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idPuesto`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +269,7 @@ CREATE TABLE `puestos` (
 
 LOCK TABLES `puestos` WRITE;
 /*!40000 ALTER TABLE `puestos` DISABLE KEYS */;
-INSERT INTO `puestos` VALUES (1,'GERENTE'),(2,'GERENTE');
+INSERT INTO `puestos` VALUES (4,'GATOs');
 /*!40000 ALTER TABLE `puestos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -339,4 +369,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-22 20:23:35
+-- Dump completed on 2024-10-24 19:06:53

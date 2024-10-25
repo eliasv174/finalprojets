@@ -3,15 +3,14 @@
     Created on : 22/10/2024, 9:48:40 a. m.
     Author     : yeymi
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="javax.servlet.http.HttpSession"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="modelo.Menu" %>
+<%@ page import="controlador.MenuControlador" %>
+
 <%
-   
-    if (session == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-    Object usuario = session.getAttribute("usuario");
+    MenuControlador menuControlador = new MenuControlador();
+    List<Menu> menus = menuControlador.obtenerMenusPadre();
 %>
 
 <!DOCTYPE html>
@@ -19,41 +18,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <title>Página de Bienvenida</title>
+    <title>Menú Dinámico</title>
     <style>
-        .container {
-            margin-top: 50px;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #555;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        nav {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        li a {
+            text-decoration: none;
+            color: #333;
+            padding: 12px 20px;
+            display: block;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        li a:hover {
+            background-color: #007bff;
+            color: white;
+            transform: translateY(-2px);
+        }
+        ul ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        ul ul li a {
+            background-color: #e9e9e9;
+            font-weight: normal;
+        }
+        ul ul li a:hover {
+            background-color: #007bff;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white text-center">
-                <h3 class="mb-0">Bienvenido, <%= usuario %></h3>
-            </div>
-            <div class="card-body">
-                <p class="text-center">Seleccione una opción para gestionar:</p>
-                <div class="list-group">
-                    <a href="ClienteControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Clientes</a>
-                    <a href="EmpleadosControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Empleados</a>
-                    <a href="ProductosControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Productos</a>
-                    <a href="VentasControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Ventas</a>
-                    <a href="ProveedorControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Proveedores</a>
-                    <a href="ComprasControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Compras</a>
-                    <a href="ComprasDetalleControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Compras Detalle</a>
-                    <a href="PuestosControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Puestos</a>
-                    <a href="VentasDetalleControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Ventas Detalle</a>
-                    <a href="MarcaControlador" class="list-group-item list-group-item-action list-group-item-primary text-center">Gestionar Marcas</a>
-                </div>
-            </div>
-            <div class="card-footer text-end">
-                <a href="logout.jsp" class="btn btn-danger">Cerrar Sesión</a>
-            </div>
-        </div>
+
+    <div>
+        <h1>Menú Principal</h1>
+        <nav>
+            <ul>
+                <%
+                    for (Menu menu : menus) {
+                %>
+                    <li>
+                        <a href="<%= request.getContextPath() + menu.getEnlace() %>"><%= menu.getNombre() %></a>
+                        <%
+                            if (menu.getSubmenus() != null && !menu.getSubmenus().isEmpty()) {
+                        %>
+                        <ul>
+                            <%
+                                for (Menu submenu : menu.getSubmenus()) {
+                            %>
+                                <li>
+                                    <a href="<%= request.getContextPath() + submenu.getEnlace() %>"><%= submenu.getNombre() %></a>
+                                    <%
+                                        if (submenu.getSubmenus() != null && !submenu.getSubmenus().isEmpty()) {
+                                    %>
+                                    <ul>
+                                        <%
+                                            for (Menu subsubmenu : submenu.getSubmenus()) {
+                                        %>
+                                            <li>
+                                                <a href="<%= request.getContextPath() + subsubmenu.getEnlace() %>"><%= subsubmenu.getNombre() %></a>
+                                            </li>
+                                        <%
+                                            }
+                                        %>
+                                    </ul>
+                                    <%
+                                        }
+                                    %>
+                                </li>
+                            <%
+                                }
+                            %>
+                        </ul>
+                        <%
+                            }
+                        %>
+                    </li>
+                <%
+                    }
+                %>
+            </ul>
+        </nav>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
