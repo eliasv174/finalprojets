@@ -12,6 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Puestos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <style>
+        /* Estilo para hacer el asterisco más grande y visible */
+        .required-asterisk {
+            color: red;
+            font-size: 1.5em;
+            vertical-align: super;
+            line-height: 0.5;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -29,14 +39,17 @@
                 Agregar / Actualizar Puesto
             </div>
             <div class="card-body">
-                <form action="PuestosControlador" method="post">
+                <form action="PuestosControlador" method="post" onsubmit="return validarFormulario();">
                     <div class="mb-3">
                         <label for="idPuesto" class="form-label">ID Puesto</label>
                         <input type="text" class="form-control" name="idPuesto" id="idPuesto" placeholder="Dejar en blanco para agregar nuevo" readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="puesto" class="form-label">Puesto</label>
-                        <input type="text" class="form-control" name="puesto" id="puesto" required>
+                        <label for="puesto" class="form-label">Puesto <span class="required-asterisk">*</span></label>
+                        <input type="text" class="form-control" name="puesto" id="puesto" required maxlength="100">
+                        <div class="invalid-feedback" id="puestoFeedback">
+                            El nombre del puesto es obligatorio y no puede exceder los 100 caracteres.
+                        </div>
                     </div>
                     <button type="submit" name="action" value="agregar" class="btn btn-primary">Agregar Puesto</button>
                     <button type="submit" name="action" value="actualizar" class="btn btn-warning">Actualizar Puesto</button>
@@ -83,7 +96,25 @@
         </div>
     </div>
 
+    <!-- Validaciones de JavaScript para el formulario -->
     <script>
+        function validarFormulario() {
+            var puestoInput = document.getElementById("puesto");
+            var feedback = document.getElementById("puestoFeedback");
+
+            // Validar que el campo puesto no esté vacío y que no exceda los 100 caracteres
+            if (puestoInput.value.trim() === "" || puestoInput.value.length > 100) {
+                puestoInput.classList.add("is-invalid");
+                feedback.style.display = "block";
+                return false; // Previene el envío del formulario
+            }
+
+            // Si todo está bien, quitar las clases de error
+            puestoInput.classList.remove("is-invalid");
+            feedback.style.display = "none";
+            return true; // Permite el envío del formulario
+        }
+
         function editarPuesto(id, nombre) {
             document.getElementById('idPuesto').value = id;
             document.getElementById('puesto').value = nombre;

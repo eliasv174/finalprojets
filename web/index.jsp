@@ -20,6 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Dinámico</title>
     <style>
+        /* CSS del menú */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f9f9f9;
@@ -90,6 +91,7 @@
             <ul>
                 <%
                     for (Menu menu : menus) {
+                        if (menu.getEnlace() != null && !menu.getEnlace().isEmpty()) {
                 %>
                     <li>
                         <a href="<%= request.getContextPath() + menu.getEnlace() %>"><%= menu.getNombre() %></a>
@@ -99,6 +101,7 @@
                         <ul>
                             <%
                                 for (Menu submenu : menu.getSubmenus()) {
+                                    if (submenu.getEnlace() != null && !submenu.getEnlace().isEmpty()) {
                             %>
                                 <li>
                                     <a href="<%= request.getContextPath() + submenu.getEnlace() %>"><%= submenu.getNombre() %></a>
@@ -108,11 +111,13 @@
                                     <ul>
                                         <%
                                             for (Menu subsubmenu : submenu.getSubmenus()) {
+                                                if (subsubmenu.getEnlace() != null && !subsubmenu.getEnlace().isEmpty()) {
                                         %>
                                             <li>
                                                 <a href="<%= request.getContextPath() + subsubmenu.getEnlace() %>"><%= subsubmenu.getNombre() %></a>
                                             </li>
                                         <%
+                                                }
                                             }
                                         %>
                                     </ul>
@@ -121,6 +126,7 @@
                                     %>
                                 </li>
                             <%
+                                    }
                                 }
                             %>
                         </ul>
@@ -129,6 +135,7 @@
                         %>
                     </li>
                 <%
+                        }
                     }
                 %>
             </ul>

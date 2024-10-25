@@ -11,8 +11,17 @@
     <meta charset="UTF-8">
     <title>Gestión de Proveedores</title>
     
-                          
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <style>
+        /* Estilo para hacer el asterisco más grande y visible */
+        .required-asterisk {
+            color: red;
+            font-size: 1.5em;
+            vertical-align: super;
+            line-height: 0.5;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -30,25 +39,22 @@
             <input type="hidden" name="idProveedor" value="${proveedor.idProveedor}">
 
             <div class="mb-3">
-                <label for="proveedor" class="form-label">Proveedor</label>
+                <label for="proveedor" class="form-label">Proveedor <span class="required-asterisk">*</span></label>
                 <input type="text" class="form-control" id="proveedor" name="proveedor" value="${proveedor != null ? proveedor.proveedor : ''}" required>
             </div>
             <div class="mb-3">
-                <label for="NIT" class="form-label">NIT</label>
+                <label for="NIT" class="form-label">NIT <span class="required-asterisk">*</span></label>
                 <input type="text" class="form-control" id="NIT" name="NIT" value="${proveedor != null ? proveedor.NIT : ''}" required>
             </div>
             <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
+                <label for="direccion" class="form-label">Dirección <span class="required-asterisk">*</span></label>
                 <input type="text" class="form-control" id="direccion" name="direccion" value="${proveedor != null ? proveedor.direccion : ''}" required>
             </div>
             <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
+                <label for="telefono" class="form-label">Teléfono <span class="required-asterisk">*</span></label>
                 <input type="text" class="form-control" id="telefono" name="telefono" value="${proveedor != null ? proveedor.telefono : ''}" required>
             </div>
             <button type="submit" class="btn btn-primary">${proveedor != null ? 'Actualizar' : 'Agregar'}</button>
-            
-            
-           
         </form>
 
         <!-- Tabla de lista de proveedores -->
@@ -73,7 +79,6 @@
                         <td>${proveedor.direccion}</td>
                         <td>${proveedor.telefono}</td>
                         <td>
-                            
                             <!-- Botón Editar -->
                             <a href="ProveedorControlador?accion=editar&idProveedor=${proveedor.idProveedor}" class="btn btn-primary">Editar</a>
                             <!-- Botón Eliminar -->
@@ -88,5 +93,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-

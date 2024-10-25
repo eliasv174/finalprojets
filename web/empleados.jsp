@@ -12,6 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Empleados</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <style>
+        /* Aumenta el tamaño y color del asterisco */
+        .required-asterisk {
+            color: red;
+            font-size: 1.5em;
+            vertical-align: super;
+            line-height: 0.5;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -34,7 +44,7 @@
                 <%= titulo %>
             </div>
             <div class="card-body">
-                <form action="empleados" method="post">
+                <form action="empleados" method="post" onsubmit="return validarFormulario();">
                     <%
                         if (editando) {
                     %>
@@ -48,46 +58,46 @@
                         }
                     %>
                     <div class="mb-3">
-                        <label for="nombres" class="form-label">Nombres</label>
-                        <input type="text" class="form-control" name="nombres" id="nombres" value="<%= editando ? empleado.getNombres() : "" %>" required>
+                        <label for="nombres" class="form-label">Nombres <span class="required-asterisk">*</span></label>
+                        <input type="text" class="form-control" name="nombres" id="nombres" value="<%= editando ? empleado.getNombres() : "" %>" required maxlength="100">
                     </div>
                     <div class="mb-3">
-                        <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" name="apellidos" id="apellidos" value="<%= editando ? empleado.getApellidos() : "" %>" required>
+                        <label for="apellidos" class="form-label">Apellidos <span class="required-asterisk">*</span></label>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos" value="<%= editando ? empleado.getApellidos() : "" %>" required maxlength="100">
                     </div>
                     <div class="mb-3">
-                        <label for="direccion" class="form-label">Dirección</label>
+                        <label for="direccion" class="form-label">Dirección <span class="required-asterisk">*</span></label>
                         <input type="text" class="form-control" name="direccion" id="direccion" value="<%= editando ? empleado.getDireccion() : "" %>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" name="telefono" id="telefono" value="<%= editando ? empleado.getTelefono() : "" %>" required>
+                        <label for="telefono" class="form-label">Teléfono <span class="required-asterisk">*</span></label>
+                        <input type="text" class="form-control" name="telefono" id="telefono" value="<%= editando ? empleado.getTelefono() : "" %>" required pattern="^\d{8,15}$">
                     </div>
                     <div class="mb-3">
-                        <label for="dpi" class="form-label">DPI</label>
-                        <input type="text" class="form-control" name="dpi" id="dpi" value="<%= editando ? empleado.getDpi() : "" %>" required>
+                        <label for="dpi" class="form-label">DPI <span class="required-asterisk">*</span></label>
+                        <input type="text" class="form-control" name="dpi" id="dpi" value="<%= editando ? empleado.getDpi() : "" %>" required maxlength="13">
                     </div>
                     <div class="mb-3">
-                        <label for="genero" class="form-label">Género</label>
-                        <select class="form-select" name="genero" id="genero">
+                        <label for="genero" class="form-label">Género <span class="required-asterisk">*</span></label>
+                        <select class="form-select" name="genero" id="genero" required>
                             <option value="true" <%= editando && empleado.getGenero() ? "selected" : "" %>>Masculino</option>
                             <option value="false" <%= editando && !empleado.getGenero() ? "selected" : "" %>>Femenino</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
+                        <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento <span class="required-asterisk">*</span></label>
                         <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" value="<%= editando ? empleado.getFechaNacimiento() : "" %>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="idPuesto" class="form-label">ID Puesto</label>
+                        <label for="idPuesto" class="form-label">ID Puesto <span class="required-asterisk">*</span></label>
                         <input type="text" class="form-control" name="idPuesto" id="idPuesto" value="<%= editando ? empleado.getIdPuesto() : "" %>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="fecha_inicio_labores" class="form-label">Fecha Inicio Labores</label>
+                        <label for="fecha_inicio_labores" class="form-label">Fecha Inicio Labores <span class="required-asterisk">*</span></label>
                         <input type="date" class="form-control" name="fecha_inicio_labores" id="fecha_inicio_labores" value="<%= editando ? empleado.getFechaInicioLabores() : "" %>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="fechaingreso" class="form-label">Fecha Ingreso</label>
+                        <label for="fechaingreso" class="form-label">Fecha Ingreso <span class="required-asterisk">*</span></label>
                         <input type="datetime-local" class="form-control" name="fechaingreso" id="fechaingreso" value="<%= editando ? empleado.getFechaIngreso().toLocalDateTime().toString().replace(' ', 'T') : "" %>" required>
                     </div>
                     <button type="submit" class="btn btn-primary">

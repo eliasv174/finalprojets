@@ -34,7 +34,7 @@
                 <%= titulo %>
             </div>
             <div class="card-body">
-                <form action="MarcaControlador" method="post">
+                <form action="MarcaControlador" method="post" onsubmit="return validarFormulario();">
                     <%
                         if (editando) {
                     %>
@@ -48,8 +48,11 @@
                         }
                     %>
                     <div class="mb-3">
-                        <label for="marca" class="form-label">Nombre de la Marca</label>
-                        <input type="text" class="form-control" name="marca" id="marca" value="<%= editando ? marca.getMarca() : "" %>" required>
+                        <label for="marca" class="form-label">Nombre de la Marca <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="marca" id="marca" value="<%= editando ? marca.getMarca() : "" %>" required maxlength="100">
+                        <div class="invalid-feedback" id="marcaFeedback">
+                            El nombre de la marca es obligatorio y no puede exceder los 100 caracteres.
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">
                         <%= editando ? "Actualizar Marca" : "Agregar Marca" %>
@@ -102,6 +105,24 @@
             </div>
         </div>
     </div>
+
+    <!-- Validaciones de JavaScript para el formulario -->
+    <script>
+        function validarFormulario() {
+            var marcaInput = document.getElementById("marca");
+            var feedback = document.getElementById("marcaFeedback");
+
+            if (marcaInput.value.trim() === "" || marcaInput.value.length > 100) {
+                marcaInput.classList.add("is-invalid");
+                feedback.style.display = "block";
+                return false; // Previene el envío del formulario
+            }
+
+            marcaInput.classList.remove("is-invalid");
+            feedback.style.display = "none";
+            return true; // Permite el envío del formulario
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

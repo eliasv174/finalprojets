@@ -28,40 +28,55 @@
                 Agregar / Actualizar Cliente
             </div>
             <div class="card-body">
-                <form action="ClienteControlador" method="post">
+                <form action="ClienteControlador" method="post" onsubmit="return validarFormulario();">
                     <div class="mb-3">
                         <label for="idCliente" class="form-label">ID Cliente</label>
                         <input type="text" class="form-control" name="idCliente" id="idCliente" placeholder="Dejar en blanco para agregar nuevo" readonly>
                     </div>
                     <div class="mb-3">
-                        <label for="nombres" class="form-label">Nombres</label>
-                        <input type="text" class="form-control" name="nombres" id="nombres" required>
+                        <label for="nombres" class="form-label">Nombres <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="nombres" id="nombres" required maxlength="100">
+                        <div class="invalid-feedback" id="nombresFeedback">
+                            El nombre es obligatorio y no puede exceder los 100 caracteres.
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="apellidos" class="form-label">Apellidos</label>
-                        <input type="text" class="form-control" name="apellidos" id="apellidos" required>
+                        <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="apellidos" id="apellidos" required maxlength="100">
+                        <div class="invalid-feedback" id="apellidosFeedback">
+                            Los apellidos son obligatorios y no pueden exceder los 100 caracteres.
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="nit" class="form-label">NIT</label>
-                        <input type="text" class="form-control" name="nit" id="nit" required>
+                        <label for="nit" class="form-label">NIT <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="nit" id="nit" required maxlength="15">
+                        <div class="invalid-feedback" id="nitFeedback">
+                            El NIT es obligatorio y no puede exceder los 15 caracteres.
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="genero" class="form-label">Género</label>
+                        <label for="genero" class="form-label">Género <span class="text-danger">*</span></label>
                         <select class="form-control" name="genero" id="genero" required>
                             <option value="true">Masculino</option>
                             <option value="false">Femenino</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="telefono" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" name="telefono" id="telefono" required>
+                        <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="telefono" id="telefono" required pattern="^\d{8,15}$">
+                        <div class="invalid-feedback" id="telefonoFeedback">
+                            El teléfono es obligatorio y debe tener entre 8 y 15 dígitos.
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="correoElectronico" class="form-label">Correo Electrónico</label>
+                        <label for="correoElectronico" class="form-label">Correo Electrónico <span class="text-danger">*</span></label>
                         <input type="email" class="form-control" name="correoElectronico" id="correoElectronico" required>
+                        <div class="invalid-feedback" id="correoFeedback">
+                            El correo electrónico es obligatorio y debe tener un formato válido.
+                        </div>
                     </div>
                     <div class="mb-3">
-                        <label for="fechaIngreso" class="form-label">Fecha de Ingreso</label>
+                        <label for="fechaIngreso" class="form-label">Fecha de Ingreso <span class="text-danger">*</span></label>
                         <input type="datetime-local" class="form-control" name="fechaIngreso" id="fechaIngreso" required>
                     </div>
                     <button type="submit" name="accion" value="agregar" class="btn btn-primary">Agregar Cliente</button>
@@ -70,7 +85,7 @@
             </div>
         </div>
 
-        
+        <!-- Lista de clientes -->
         <div class="card">
             <div class="card-header">
                 Lista de Clientes
@@ -124,7 +139,63 @@
         </div>
     </div>
 
+    <!-- Validaciones de JavaScript para el formulario -->
     <script>
+        function validarFormulario() {
+            var nombresInput = document.getElementById("nombres");
+            var apellidosInput = document.getElementById("apellidos");
+            var nitInput = document.getElementById("nit");
+            var telefonoInput = document.getElementById("telefono");
+            var correoInput = document.getElementById("correoElectronico");
+            var feedback = {
+                nombres: document.getElementById("nombresFeedback"),
+                apellidos: document.getElementById("apellidosFeedback"),
+                nit: document.getElementById("nitFeedback"),
+                telefono: document.getElementById("telefonoFeedback"),
+                correo: document.getElementById("correoFeedback")
+            };
+
+            // Validaciones
+            if (nombresInput.value.trim() === "" || nombresInput.value.length > 100) {
+                nombresInput.classList.add("is-invalid");
+                feedback.nombres.style.display = "block";
+                return false;
+            }
+
+            if (apellidosInput.value.trim() === "" || apellidosInput.value.length > 100) {
+                apellidosInput.classList.add("is-invalid");
+                feedback.apellidos.style.display = "block";
+                return false;
+            }
+
+            if (nitInput.value.trim() === "" || nitInput.value.length > 15) {
+                nitInput.classList.add("is-invalid");
+                feedback.nit.style.display = "block";
+                return false;
+            }
+
+            if (!/^\d{8,15}$/.test(telefonoInput.value)) {
+                telefonoInput.classList.add("is-invalid");
+                feedback.telefono.style.display = "block";
+                return false;
+            }
+
+            if (!correoInput.checkValidity()) {
+                correoInput.classList.add("is-invalid");
+                feedback.correo.style.display = "block";
+                return false;
+            }
+
+            // Si todo está bien, ocultar los mensajes de error
+            nombresInput.classList.remove("is-invalid");
+            apellidosInput.classList.remove("is-invalid");
+            nitInput.classList.remove("is-invalid");
+            telefonoInput.classList.remove("is-invalid");
+            correoInput.classList.remove("is-invalid");
+
+            return true; // Permite el envío del formulario
+        }
+
         function editarCliente(id, nombres, apellidos, nit, genero, telefono, correoElectronico, fechaIngreso) {
             document.getElementById('idCliente').value = id;
             document.getElementById('nombres').value = nombres;
