@@ -14,9 +14,7 @@
         <group>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/finalprojets/web/index.jsp</file>
             <file>file:/C:/Users/PC/Documents/NetBeansProjects/finalprojets/web/empleados.jsp</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/finalprojets/src/java/controlador/MenuControlador.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/finalprojets/src/java/controlador/ProveedorControlador.java</file>
-            <file>file:/C:/Users/PC/Documents/NetBeansProjects/finalprojets/web/META-INF/context.xml</file>
+            <file>file:/C:/Users/PC/Documents/NetBeansProjects/finalprojets/src/java/controlador/PuestosControlador.java</file>
         </group>
     </open-files>
 </project-private>
