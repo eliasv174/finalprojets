@@ -1,8 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 22/10/2024, 9:48:40 a. m.
-    Author     : yeymi
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
 <%@ page import="modelo.Menu" %>
@@ -19,102 +14,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Dinámico</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        /* CSS del menú */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
+            display: flex;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        h1 {
-            text-align: center;
-            color: #555;
-            font-size: 2.5em;
-            margin-bottom: 20px;
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #343a40;
+            padding-top: 20px;
         }
-        nav {
-            width: 100%;
-            max-width: 400px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+        .sidebar a {
+            text-decoration: none;
+            font-size: 18px;
+            color: #ccc;
+            padding: 10px 20px;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .submenu {
+            padding-left: 20px;
+        }
+
+        .submenu a {
+            font-size: 16px;
+        }
+
+        .content {
+            flex-grow: 1;
+            background-color: #f8f9fa;
             padding: 20px;
         }
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        li a {
-            text-decoration: none;
-            color: #333;
-            padding: 12px 20px;
-            display: block;
-            background-color: #f0f0f0;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        li a:hover {
-            background-color: #007bff;
-            color: white;
-            transform: translateY(-2px);
-        }
-        ul ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-        ul ul li a {
-            background-color: #e9e9e9;
-            font-weight: normal;
-        }
-        ul ul li a:hover {
-            background-color: #007bff;
-            color: white;
-        }
+
     </style>
 </head>
 <body>
 
-    <div>
-        <h1>Menú</h1>
+    <!-- Sidebar -->
+    <div class="sidebar">
         <nav>
-            <ul>
+            <ul class="nav flex-column">
                 <%
                     for (Menu menu : menus) {
                         if (menu.getEnlace() != null && !menu.getEnlace().isEmpty()) {
                 %>
-                    <li>
-                        <a href="<%= request.getContextPath() + menu.getEnlace() %>"><%= menu.getNombre() %></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%= request.getContextPath() + menu.getEnlace() %>">
+                            <%= menu.getNombre() %>
+                        </a>
+
+                        <%-- Submenu Handling --%>
                         <%
                             if (menu.getSubmenus() != null && !menu.getSubmenus().isEmpty()) {
                         %>
-                        <ul>
+                        <ul class="submenu">
                             <%
                                 for (Menu submenu : menu.getSubmenus()) {
                                     if (submenu.getEnlace() != null && !submenu.getEnlace().isEmpty()) {
                             %>
                                 <li>
-                                    <a href="<%= request.getContextPath() + submenu.getEnlace() %>"><%= submenu.getNombre() %></a>
+                                    <a href="<%= request.getContextPath() + submenu.getEnlace() %>">
+                                        <%= submenu.getNombre() %>
+                                    </a>
+
+                                    <%-- Sub-submenu Handling --%>
                                     <%
                                         if (submenu.getSubmenus() != null && !submenu.getSubmenus().isEmpty()) {
                                     %>
-                                    <ul>
+                                    <ul class="submenu">
                                         <%
                                             for (Menu subsubmenu : submenu.getSubmenus()) {
                                                 if (subsubmenu.getEnlace() != null && !subsubmenu.getEnlace().isEmpty()) {
                                         %>
                                             <li>
-                                                <a href="<%= request.getContextPath() + subsubmenu.getEnlace() %>"><%= subsubmenu.getNombre() %></a>
+                                                <a href="<%= request.getContextPath() + subsubmenu.getEnlace() %>">
+                                                    <%= subsubmenu.getNombre() %>
+                                                </a>
                                             </li>
                                         <%
                                                 }
@@ -124,6 +117,7 @@
                                     <%
                                         }
                                     %>
+
                                 </li>
                             <%
                                     }
@@ -142,5 +136,14 @@
         </nav>
     </div>
 
+    <!-- Content Area -->
+    <div class="content">
+        <h1>Bienvenido al Sistema</h1>
+        <p>Selecciona una opción del menú para continuar.</p>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
