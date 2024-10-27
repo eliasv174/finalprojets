@@ -86,7 +86,7 @@
 <body>
 
     <div>
-        <h1>Menú Principal</h1>
+        <h1>Menú</h1>
         <nav>
             <ul>
                 <%
