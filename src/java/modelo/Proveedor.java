@@ -11,32 +11,30 @@ package modelo;
 
 
 public class Proveedor {
-    private int idProveedor;
+    private int id_proveedor;
     private String proveedor;
-    private String NIT;
+    private String nit;
     private String direccion;
     private String telefono;
 
-    // Constructor vacío
-    public Proveedor() {
-    }
-
-    // Constructor completo
-    public Proveedor(int idProveedor, String proveedor, String NIT, String direccion, String telefono) {
-        this.idProveedor = idProveedor;
+    public Proveedor (){}
+    
+    public Proveedor(int id_proveedor, String proveedor, String nit, String direccion, String telefono) {
+        this.id_proveedor = id_proveedor;
         this.proveedor = proveedor;
-        this.NIT = NIT;
+        this.nit = nit;
         this.direccion = direccion;
         this.telefono = telefono;
+   
+        
     }
 
-    // Getters y Setters
-    public int getIdProveedor() {
-        return idProveedor;
+    public int getId_proveedor() {
+        return id_proveedor;
     }
 
-    public void setIdProveedor(int idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setId_proveedor(int id_proveedor) {
+        this.id_proveedor = id_proveedor;
     }
 
     public String getProveedor() {
@@ -47,12 +45,12 @@ public class Proveedor {
         this.proveedor = proveedor;
     }
 
-    public String getNIT() {
-        return NIT;
+    public String getNit() {
+        return nit;
     }
 
-    public void setNIT(String NIT) {
-        this.NIT = NIT;
+    public void setNit(String nit) {
+        this.nit = nit;
     }
 
     public String getDireccion() {
@@ -70,5 +68,7 @@ public class Proveedor {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-}
 
+    
+
+}

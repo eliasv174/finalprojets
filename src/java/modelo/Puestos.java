@@ -1,33 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package modelo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+package modelo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.sql.PreparedStatement;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+
 /**
  *
  * @author yeymi
  */
-// Modelo Puestos.java
-
-
 public class Puestos {
-    private int idPuesto;
+    private int id_puesto;
     private String puesto;
+    private Conexion cn;
     
-    // Getters y Setters
-    public int getIdPuesto() {
-        return idPuesto;
+
+    public Puestos(){}
+    
+    public Puestos(int id_puesto, String puesto) {
+        this.id_puesto = id_puesto;
+        this.puesto = puesto;
     }
 
-    public void setIdPuesto(int idPuesto) {
-        this.idPuesto = idPuesto;
+    public int getId_puesto() {
+        return id_puesto;
+    }
+
+    public void setId_puesto(int id_puesto) {
+        this.id_puesto = id_puesto;
     }
 
     public String getPuesto() {
@@ -37,107 +39,76 @@ public class Puestos {
     public void setPuesto(String puesto) {
         this.puesto = puesto;
     }
-    
-    // Método para listar todos los puestos
-    public List<Puestos> listar() {
-        List<Puestos> lista = new ArrayList<>();
-        Conexion conexion = new Conexion();
-        Connection con = conexion.getConnection();
-        PreparedStatement ps;
-        ResultSet rs;
-        
+
+    public DefaultTableModel leerPuesto() {
+        DefaultTableModel tabla = new DefaultTableModel();
         try {
-            String sql = "SELECT * FROM puestos";
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                Puestos puesto = new Puestos();
-                puesto.setIdPuesto(rs.getInt("idPuesto"));
-                puesto.setPuesto(rs.getString("puesto"));
-                lista.add(puesto);
+            cn = new Conexion();
+            cn.abrir_conexion();
+            String query = "SELECT * FROM puestos";
+            ResultSet consultaPuestos = cn.conexionBD.createStatement().executeQuery(query);
+            String encabezado[] = {"id_puesto","puesto"};
+            tabla.setColumnIdentifiers(encabezado);
+            String datos[] = new String[2];
+            while (consultaPuestos.next()) {
+                datos[0] = consultaPuestos.getString("id_puesto");
+                datos[1] = consultaPuestos.getString("puesto");
+                tabla.addRow(datos);
             }
-            
+            cn.cerrar_conexion();
         } catch (SQLException e) {
             System.out.println("Error al listar puestos: " + e.getMessage());
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
-            }
         }
-        
-        return lista;
+        return tabla;
     }
     
-    // Método para agregar un nuevo puesto
+    
+    
     public void agregar(Puestos puesto) {
         Conexion conexion = new Conexion();
-        Connection con = conexion.getConnection();
-        PreparedStatement ps;
-        
+        Connection con = conexion.abrir_conexion();
         try {
-            String sql = "INSERT INTO puestos (puesto) VALUES (?)";
-            ps = con.prepareStatement(sql);
+            String query = "INSERT INTO puestos (puesto) VALUES (?)";
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, puesto.getPuesto());
             ps.executeUpdate();
-            
+             conexion.cerrar_conexion();
         } catch (SQLException e) {
             System.out.println("Error al agregar puesto: " + e.getMessage());
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
-            }
         }
-    }
+      }
     
-    // Método para actualizar un puesto existente
+    
     public void actualizar(Puestos puesto) {
         Conexion conexion = new Conexion();
-        Connection con = conexion.getConnection();
-        PreparedStatement ps;
-        
+        Connection con = conexion.abrir_conexion();
         try {
-            String sql = "UPDATE puestos SET puesto = ? WHERE idPuesto = ?";
-            ps = con.prepareStatement(sql);
+            String query = "UPDATE puestos SET puesto = ? WHERE id_puesto = ?";
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, puesto.getPuesto());
-            ps.setInt(2, puesto.getIdPuesto());
+            ps.setInt(2, puesto.getId_puesto());
             ps.executeUpdate();
+            conexion.cerrar_conexion();
             
         } catch (SQLException e) {
-            System.out.println("Error al actualizar puesto: " + e.getMessage());
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
-            }
+            System.out.println("Error al actualizar puesto: " + e.getMessage());            
         }
     }
     
-    // Método para eliminar un puesto
     public void eliminar(int idPuesto) {
         Conexion conexion = new Conexion();
-        Connection con = conexion.getConnection();
-        PreparedStatement ps;
-        
+        Connection con = conexion.abrir_conexion();
+
         try {
-            String sql = "DELETE FROM puestos WHERE idPuesto = ?";
-            ps = con.prepareStatement(sql);
+            String sql = "DELETE FROM puestos WHERE id_puesto = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idPuesto);
             ps.executeUpdate();
+            conexion.cerrar_conexion();
             
         } catch (SQLException e) {
             System.out.println("Error al eliminar puesto: " + e.getMessage());
-        } finally {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión: " + e.getMessage());
-            }
+ 
         }
-    }
+        }
 }

@@ -25,7 +25,7 @@ public class UsuarioDAO {
     public int validarUsuario(Usuario usuario) {
         String sql = "SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?";
         try {
-            con = cn.getConnection();
+            con = cn.abrir_conexion();
             if (con != null) {
                 System.out.println("Conexión establecida correctamente.");
             } else {
@@ -58,4 +58,3 @@ public class UsuarioDAO {
         return 0;  // Usuario no válido
     }
 }
-

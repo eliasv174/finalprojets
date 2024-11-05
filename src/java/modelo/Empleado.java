@@ -7,25 +7,40 @@ package modelo;
 import java.sql.Timestamp;
 
 public class Empleado {
-    private int idEmpleado;
+    private int id_empleado;
     private String nombres;
     private String apellidos;
     private String direccion;
     private String telefono;
     private String dpi;
     private boolean genero;
-    private String fechaNacimiento;
-    private int idPuesto;
-    private String fechaInicioLabores;
-    private Timestamp fechaIngreso;  // Usamos Timestamp para DATETIME
+    private String fecha_nacimiento;
+    private int id_puesto;
+    private String fecha_inicio_labores;
+    private Timestamp fecha_ingreso;  // Usamos Timestamp para DATETIME
 
-    // Getters y Setters
-    public int getIdEmpleado() {
-        return idEmpleado;
+    public Empleado(){}
+    
+    public Empleado(int id_empleado, String nombres, String apellidos, String direccion, String telefono, String dpi, boolean genero, String fecha_nacimiento, int id_puesto, String fecha_inicio_labores, Timestamp fecha_ingreso) {
+        this.id_empleado = id_empleado;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.dpi = dpi;
+        this.genero = genero;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.id_puesto = id_puesto;
+        this.fecha_inicio_labores = fecha_inicio_labores;
+        this.fecha_ingreso = fecha_ingreso;
     }
 
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
+    public int getId_empleado() {
+        return id_empleado;
+    }
+
+    public void setId_empleado(int id_empleado) {
+        this.id_empleado = id_empleado;
     }
 
     public String getNombres() {
@@ -68,7 +83,7 @@ public class Empleado {
         this.dpi = dpi;
     }
 
-    public boolean getGenero() {
+    public boolean isGenero() {
         return genero;
     }
 
@@ -76,35 +91,37 @@ public class Empleado {
         this.genero = genero;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
+    public String getFecha_nacimiento() {
+        return fecha_nacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    public void setFecha_nacimiento(String fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public int getIdPuesto() {
-        return idPuesto;
+    public int getId_puesto() {
+        return id_puesto;
     }
 
-    public void setIdPuesto(int idPuesto) {
-        this.idPuesto = idPuesto;
+    public void setId_puesto(int id_puesto) {
+        this.id_puesto = id_puesto;
     }
 
-    public String getFechaInicioLabores() {
-        return fechaInicioLabores;
+    public String getFecha_inicio_labores() {
+        return fecha_inicio_labores;
     }
 
-    public void setFechaInicioLabores(String fechaInicioLabores) {
-        this.fechaInicioLabores = fechaInicioLabores;
+    public void setFecha_inicio_labores(String fecha_inicio_labores) {
+        this.fecha_inicio_labores = fecha_inicio_labores;
     }
 
-    public Timestamp getFechaIngreso() {
-        return fechaIngreso;
+    public Timestamp getFecha_ingreso() {
+        return fecha_ingreso;
     }
 
-    public void setFechaIngreso(Timestamp fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+    public void setFecha_ingreso(Timestamp fecha_ingreso) {
+        this.fecha_ingreso = fecha_ingreso;
     }
+
+    
 }

@@ -9,27 +9,23 @@ package modelo;
  * @author yeymi
  */
 
-
 public class Marca {
-    private int idMarca;
+    private int id_marca;
     private String marca;
 
-    // Constructor vacío
-    public Marca() {}
-
-    // Constructor con parámetros
-    public Marca(int idMarca, String marca) {
-        this.idMarca = idMarca;
+    public Marca(){}
+    
+    public Marca(int id_marca, String marca) {
+        this.id_marca = id_marca;
         this.marca = marca;
     }
 
-    // Getters y Setters
-    public int getIdMarca() {
-        return idMarca;
+    public int getId_marca() {
+        return id_marca;
     }
 
-    public void setIdMarca(int idMarca) {
-        this.idMarca = idMarca;
+    public void setId_marca(int id_marca) {
+        this.id_marca = id_marca;
     }
 
     public String getMarca() {
@@ -39,4 +35,6 @@ public class Marca {
     public void setMarca(String marca) {
         this.marca = marca;
     }
+    
+    
 }
