@@ -11,41 +11,35 @@ import java.time.LocalDateTime;
  * @author yeymi
  */
 
-
-
 public class Cliente {
-    private int idCliente;
+    private int id_cliente;
     private String nombres;
     private String apellidos;
     private String nit;
     private boolean genero;
     private String telefono;
-    private String correoElectronico;
-    private LocalDateTime fechaIngreso;
+    private String correo_electronico;
+    private LocalDateTime fecha_ingreso;
 
-    // Constructor vacío
-    public Cliente() {
-    }
-
-    // Constructor con parámetros
-    public Cliente(int idCliente, String nombres, String apellidos, String nit, boolean genero, String telefono, String correoElectronico, LocalDateTime fechaIngreso) {
-        this.idCliente = idCliente;
+    public Cliente(){}
+    
+    public Cliente(int id_cliente, String nombres, String apellidos, String nit, boolean genero, String telefono, String correo_electronico, LocalDateTime fecha_ingreso) {
+        this.id_cliente = id_cliente;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.nit = nit;
         this.genero = genero;
         this.telefono = telefono;
-        this.correoElectronico = correoElectronico;
-        this.fechaIngreso = fechaIngreso;
+        this.correo_electronico = correo_electronico;
+        this.fecha_ingreso = fecha_ingreso;
     }
 
-    // Getters y setters
-    public int getIdCliente() {
-        return idCliente;
+    public int getId_cliente() {
+        return id_cliente;
     }
 
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
 
     public String getNombres() {
@@ -88,19 +82,21 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
+    public String getCorreo_electronico() {
+        return correo_electronico;
     }
 
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+    public void setCorreo_electronico(String correo_electronico) {
+        this.correo_electronico = correo_electronico;
     }
 
-    public LocalDateTime getFechaIngreso() {
-        return fechaIngreso;
+    public LocalDateTime getFecha_ingreso() {
+        return fecha_ingreso;
     }
 
-    public void setFechaIngreso(LocalDateTime fechaIngreso) {
-        this.fechaIngreso = fechaIngreso;
+    public void setFecha_ingreso(LocalDateTime fecha_ingreso) {
+        this.fecha_ingreso = fecha_ingreso;
     }
+    
+    
 }

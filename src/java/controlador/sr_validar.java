@@ -19,13 +19,8 @@ import modelo.UsuarioDAO;
  * @author yeymi
  */
 
-
-
-
-
-
-@WebServlet(name = "LoginControlador", urlPatterns = {"/LoginControlador"})
-public class LoginControlador extends HttpServlet {
+@WebServlet(name = "sr_validar", urlPatterns = {"/sr_validar"})
+public class sr_validar extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -80,4 +75,3 @@ public class LoginControlador extends HttpServlet {
         return "Servlet para gestionar el login y cierre de sesión";
     }
 }
-
