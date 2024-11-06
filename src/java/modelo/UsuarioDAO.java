@@ -23,7 +23,7 @@ public class UsuarioDAO {
     ResultSet rs;
 
     public int validarUsuario(Usuario usuario) {
-        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND contraseña = ?";
+        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?";
         try {
             con = cn.abrir_conexion();
             if (con != null) {

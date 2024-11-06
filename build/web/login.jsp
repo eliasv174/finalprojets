@@ -86,7 +86,7 @@
         <h2>Iniciar Sesión</h2>
         
         <!-- Formulario de login -->
-        <form action="LoginControlador" method="POST">
+        <form action="sr_validar" method="POST">
             <input type="text" name="usuario" placeholder="Usuario" required><br>
             <input type="password" name="contrasena" placeholder="Contraseña" required><br>
             <button type="submit">Iniciar Sesión</button>

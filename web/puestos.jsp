@@ -1,126 +1,65 @@
-<%-- 
-    Document   : puestos
-    Created on : 22/10/2024, 11:33:58 a. m.
-    Author     : yeymi
---%>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.List, modelo.Puestos" %>
+<%@page import="modelo.Puesto"%>
+<%@page import="javax.swing.table.DefaultTableModel"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Puestos</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    
-    <style>
-        /* Estilo para hacer el asterisco más grande y visible */
-        .required-asterisk {
-            color: red;
-            font-size: 1.5em;
-            vertical-align: super;
-            line-height: 0.5;
-        }
-    </style>
-</head>
-<body>
-    <div class="container mt-5">
-        <h2 class="text-center">Gestión de Puestos</h2>
-
-        <!-- Botones para redirigir al CRUD de empleados y al index -->
-        <div class="text-center mb-4">
-            <a href="empleados" class="btn btn-primary">Ir  Empleados</a>
-            <a href="index.jsp" class="btn btn-secondary">Ir al Inicio</a>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Puestos</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    </head>
+    <body>
+        <br>
+        <center><h1>MANTENIMIENTO DE PUESTOS</h1></center>
+        <div class="container">
+            <!-- Formulario para Agregar/Modificar Puesto -->
+            <form action="sr_puestos" method="post" class="form-group">
+                <label for="lbl_id_puesto"><b>Id Puesto:</b></label>
+                <input type="text" name="txt_id_puesto" id="txt_id_puesto" class="form-control" value="0" readonly>
+                <label for="lbl_puesto"><b>Nombre de Puesto</b></label>
+                <input type="text" name="txt_puesto" id="txt_puesto" class="form-control" placeholder="Ejemplo: Nombre Puesto" required>
+                <br>   
+                <button name="btn_agregar" id="btn_agregar" value="agregar" class="btn btn-primary btn-lg" onclick="javascript:if(!confirm('¿Desea Agregar?'))return false">AGREGAR</button>
+                <button name="btn_modificar" id="btn_modificar" value="modificar" class="btn btn-success btn-lg" onclick="javascript:if(!confirm('¿Desea Modificar?'))return false">MODIFICAR</button>
+                <button name="btn_eliminar" id="btn_eliminar" value="eliminar" class="btn btn-danger btn-lg" onclick="javascript:if(!confirm('¿Desea Eliminar?'))return false">ELIMINAR</button>                        
+            </form>
+            
+            <!-- Tabla para Mostrar Puestos -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="text-align: center">ID Puesto</th>
+                        <th style="text-align: center">Puesto</th>
+                    </tr>
+                </thead>
+                <tbody id="tbl_puestos">
+                    <%
+                    Puesto puesto = new Puesto();
+                    DefaultTableModel tabla = puesto.leerPuestos();
+                    for (int t = 0; t < tabla.getRowCount(); t++) {
+                        out.println("<tr data-id='" + tabla.getValueAt(t, 0) + "'>");
+                        out.println("<td>" + tabla.getValueAt(t, 0) + "</td>");
+                        out.println("<td>" + tabla.getValueAt(t, 1) + "</td>");
+                        out.println("</tr>");
+                    }
+                    %>
+                </tbody>
+            </table>
         </div>
 
-        <!-- Formulario para agregar / actualizar puesto -->
-        <div class="card mb-4">
-            <div class="card-header">
-                Agregar / Actualizar Puesto
-            </div>
-            <div class="card-body">
-                <form action="PuestosControlador" method="post" onsubmit="return validarFormulario();">
-                    <div class="mb-3">
-                        <label for="idPuesto" class="form-label">ID Puesto</label>
-                        <input type="text" class="form-control" name="idPuesto" id="idPuesto" placeholder="Dejar en blanco para agregar nuevo" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="puesto" class="form-label">Puesto <span class="required-asterisk">*</span></label>
-                        <input type="text" class="form-control" name="puesto" id="puesto" required maxlength="100">
-                        <div class="invalid-feedback" id="puestoFeedback">
-                            El nombre del puesto es obligatorio y no puede exceder los 100 caracteres.
-                        </div>
-                    </div>
-                    <button type="submit" name="action" value="agregar" class="btn btn-primary">Agregar Puesto</button>
-                    <button type="submit" name="action" value="actualizar" class="btn btn-warning">Actualizar Puesto</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Lista de puestos -->
-        <div class="card">
-            <div class="card-header">
-                Lista de Puestos
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID Puesto</th>
-                            <th>Puesto</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            // Aquí se espera que la lista de puestos esté disponible como atributo de solicitud (request attribute)
-                            List<Puestos> puestos = (List<Puestos>) request.getAttribute("puestos");
-                            if (puestos != null) {
-                                for (Puestos puesto : puestos) {
-                        %>
-                            <tr>
-                                <td><%= puesto.getIdPuesto() %></td>
-                                <td><%= puesto.getPuesto() %></td>
-                                <td>
-                                    <a href="PuestosControlador?action=eliminar&id=<%= puesto.getIdPuesto() %>" class="btn btn-danger">Eliminar</a>
-                                    <button class="btn btn-info" onclick="editarPuesto(<%= puesto.getIdPuesto() %>, '<%= puesto.getPuesto() %>')">Editar</button>
-                                </td>
-                            </tr>
-                        <%
-                                }
-                            }
-                        %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Validaciones de JavaScript para el formulario -->
-    <script>
-        function validarFormulario() {
-            var puestoInput = document.getElementById("puesto");
-            var feedback = document.getElementById("puestoFeedback");
-
-            // Validar que el campo puesto no esté vacío y que no exceda los 100 caracteres
-            if (puestoInput.value.trim() === "" || puestoInput.value.length > 100) {
-                puestoInput.classList.add("is-invalid");
-                feedback.style.display = "block";
-                return false; // Previene el envío del formulario
-            }
-
-            // Si todo está bien, quitar las clases de error
-            puestoInput.classList.remove("is-invalid");
-            feedback.style.display = "none";
-            return true; // Permite el envío del formulario
-        }
-
-        function editarPuesto(id, nombre) {
-            document.getElementById('idPuesto').value = id;
-            document.getElementById('puesto').value = nombre;
-        }
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        <!-- Scripts de JavaScript y Bootstrap -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        
+        <!-- Script de Interacción para Llenar Formulario -->
+        <script type="text/javascript">
+            $('#tbl_puestos').on('click', 'tr', function() {
+                var id_puesto = $(this).data('id');
+                var puesto = $(this).find("td").eq(1).html();
+                
+                $("#txt_id").val(id_puesto);
+                $("#txt_puesto").val(puesto);
+            });
+        </script>
+    </body>
 </html>
