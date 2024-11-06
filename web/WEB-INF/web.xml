@@ -8,6 +8,22 @@
         <servlet-name>sr_validar</servlet-name>
         <servlet-class>controlador.sr_validar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>sr_puestos_adm</servlet-name>
+        <servlet-class>controlador.sr_puestos_adm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_controlador</servlet-name>
+        <servlet-class>controlador.sr_controlador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_proveedor</servlet-name>
+        <servlet-class>controlador.sr_proveedor</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_puestos</servlet-name>
+        <servlet-class>controlador.sr_puestos</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>sr_cliente</servlet-name>
         <url-pattern>/sr_cliente</url-pattern>
@@ -16,7 +32,23 @@
         <servlet-name>sr_validar</servlet-name>
         <url-pattern>/sr_validar</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_puestos_adm</servlet-name>
+        <url-pattern>/sr_puestos_adm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_controlador</servlet-name>
+        <url-pattern>/sr_controlador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_proveedor</servlet-name>
+        <url-pattern>/sr_proveedor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_puestos</servlet-name>
+        <url-pattern>/sr_puestos</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

@@ -34,26 +34,22 @@ public class sr_validar extends HttpServlet {
             return;
         }
         
-        // Obtener parámetros del formulario de login
         String usuario = request.getParameter("usuario");
         String contrasena = request.getParameter("contrasena");
 
-        // Crear un objeto Usuario y asignar valores
         Usuario user = new Usuario();
         user.setUsuario(usuario);
         user.setContrasena(contrasena);
 
-        // Crear un DAO para validar el usuario
         UsuarioDAO dao = new UsuarioDAO();
         int resultado = dao.validarUsuario(user);
 
-        // Si el login es exitoso
         if (resultado == 1) {
             HttpSession session = request.getSession();
-            session.setAttribute("usuario", usuario);  // Almacenar el usuario en la sesión
-            response.sendRedirect("index.jsp");  // Redirigir a la página principal
+            session.setAttribute("usuario", usuario); 
+            response.sendRedirect("index.jsp"); 
         } else {
-            // Si el login falla, redirigir al login con un error
+          
             response.sendRedirect("login.jsp?error=true");
         }
     }
@@ -68,6 +64,16 @@ public class sr_validar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        String accion = request.getParameter("accion");
+
+        if ("cerrar".equals(accion)) {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate(); // Invalida la sesión
+            }
+            response.sendRedirect("login.jsp"); // Redirige a la página de login
+        }
+        
     }
 
     @Override

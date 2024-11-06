@@ -30,7 +30,7 @@ public class filtro_login implements Filter {
     HttpServletRequest request = (HttpServletRequest) servletRequest;
     System.out.println(request.getRequestURI());
     
-    if (request.getSession().getAttribute("Usuario") != null) {
+    if (request.getSession().getAttribute("usuario") != null) {
         chain.doFilter(servletRequest, servletResponse);
     } else {
         request.getRequestDispatcher("/login.jsp").forward(servletRequest, servletResponse);
