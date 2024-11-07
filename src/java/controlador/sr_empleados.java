@@ -10,12 +10,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modelo.Empleado;
 
 /**
  *
  * @author IT
  */
-public class sr_cliente extends HttpServlet {
+public class sr_empleados extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,13 +35,37 @@ public class sr_cliente extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet sr_cliente</title>");
+            out.println("<title>Servlet sr_empleados</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet sr_cliente at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet sr_empleados at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
             
+                        Empleado empleado;
+         empleado = new Empleado(
+    Integer.valueOf(request.getParameter("txt_id")),
+    request.getParameter("txt_nombres"),
+    request.getParameter("txt_apellidos"),
+    request.getParameter("txt_direccion"),
+    request.getParameter("txt_telefono"),
+    request.getParameter("txt_dpi"),
+    request.getParameter("txt_fecha_nacimiento"),
+    Integer.valueOf(request.getParameter("drop_puesto")),                     
+    request.getParameter("txt_fecha_inicio_labores"),
+    request.getParameter("txt_fecha_ingreso"),
+    Integer.valueOf(request.getParameter("drop_genero")));
+
+             if("agregar".equals(request.getParameter("btn_agregar"))){
+         if (empleado.agregarEmpl()>0){
+                response.sendRedirect("index.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE INGRESO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='index.jsp'>Regresar</a>");
+         }
+         
+         
+         }
             
         }
     }

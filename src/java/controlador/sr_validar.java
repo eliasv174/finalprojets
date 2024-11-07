@@ -49,7 +49,6 @@ public class sr_validar extends HttpServlet {
             session.setAttribute("usuario", usuario); 
             response.sendRedirect("index.jsp"); 
         } else {
-          
             response.sendRedirect("login.jsp?error=true");
         }
     }
@@ -69,7 +68,7 @@ public class sr_validar extends HttpServlet {
         if ("cerrar".equals(accion)) {
             HttpSession session = request.getSession(false);
             if (session != null) {
-                session.invalidate(); // Invalida la sesión
+                request.getRequestDispatcher("index.jsp");
             }
             response.sendRedirect("login.jsp"); // Redirige a la página de login
         }

@@ -16,14 +16,14 @@ public class Cliente {
     private String nombres;
     private String apellidos;
     private String nit;
-    private boolean genero;
+    private int genero;
     private String telefono;
     private String correo_electronico;
     private LocalDateTime fecha_ingreso;
 
     public Cliente(){}
     
-    public Cliente(int id_cliente, String nombres, String apellidos, String nit, boolean genero, String telefono, String correo_electronico, LocalDateTime fecha_ingreso) {
+    public Cliente(int id_cliente, String nombres, String apellidos, String nit, int genero, String telefono, String correo_electronico, LocalDateTime fecha_ingreso) {
         this.id_cliente = id_cliente;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -66,11 +66,11 @@ public class Cliente {
         this.nit = nit;
     }
 
-    public boolean isGenero() {
+    public int isGenero() {
         return genero;
     }
 
-    public void setGenero(boolean genero) {
+    public void setGenero(int genero) {
         this.genero = genero;
     }
 
@@ -98,5 +98,9 @@ public class Cliente {
         this.fecha_ingreso = fecha_ingreso;
     }
     
+    public void leer(){}
+    public void agregar(){}
+    public void modificar(){}
+    public void eliminar(){}
     
 }

@@ -64,6 +64,7 @@ public DefaultTableModel leerPuestos() {
 
     // Agregar puesto
     public int agregarPuesto() {
+        int retorno = 0;
         try {
             PreparedStatement parametro;
             cn = new Conexion();
@@ -72,24 +73,24 @@ public DefaultTableModel leerPuestos() {
             parametro = (PreparedStatement)cn.conexionBD.prepareStatement(query);
             parametro.setInt(1, getId_puesto());
             parametro.setString(2, getPuesto());
-            parametro.executeUpdate();
+            retorno = parametro.executeUpdate();
             cn.cerrar_conexion();
         } catch (SQLException ex) {
             System.out.println("Error agregar_puesto: " + ex.getMessage());
         }
-        return (0);
+        return retorno;
     }
 
     // Modificar puesto
     public int modificarPuesto() {
         int retorno = 0;
         try {
-            String query = "UPDATE puestos SET puesto=? WHERE idpuesto=?;";
+            String query = "UPDATE puestos SET puesto=? WHERE id_puesto=?;";
             cn = new Conexion();
             cn.abrir_conexion();
             var ps = cn.conexionBD.prepareStatement(query);
-            ps.setString(1, this.getPuesto());
-            ps.setInt(2, this.getId_puesto());
+            ps.setString(1, getPuesto());
+            ps.setInt(2, getId_puesto());
             retorno = ps.executeUpdate();
             cn.cerrar_conexion();
         } catch (SQLException ex) {
@@ -102,7 +103,7 @@ public DefaultTableModel leerPuestos() {
     public int eliminarPuesto() {
         int retorno = 0;
         try {
-            String query = "DELETE FROM puestos WHERE idpuesto=?;";
+            String query = "DELETE FROM puestos WHERE id_puesto=?;";
             cn = new Conexion();
             cn.abrir_conexion();
             var ps = cn.conexionBD.prepareStatement(query);
@@ -119,12 +120,12 @@ public DefaultTableModel leerPuestos() {
     public HashMap<String, String> drop_puestos() {
         HashMap<String, String> drop = new HashMap<>();
         try {
-            String query = "SELECT idpuesto, puesto FROM puestos;";
+            String query = "SELECT id_puesto, puesto FROM puestos;";
             cn = new Conexion();
             cn.abrir_conexion();
             ResultSet consulta = cn.conexionBD.createStatement().executeQuery(query);
             while (consulta.next()) {
-                drop.put(consulta.getString("idpuesto"), consulta.getString("puesto"));
+                drop.put(consulta.getString("id_puesto"), consulta.getString("puesto"));
             }
             cn.cerrar_conexion();
         } catch (SQLException ex) {

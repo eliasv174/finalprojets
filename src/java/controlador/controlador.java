@@ -5,6 +5,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author IT
  */
-public class sr_controlador extends HttpServlet {
+public class controlador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,20 +28,41 @@ public class sr_controlador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String accion = request.getParameter ("accion");
-            switch (accion){
-            case "inicio":
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet controlador</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet controlador at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            
+    String accion = request.getParameter ("menu");
+        if (accion == null) {
+            accion = "login";
+        }
+    
+            switch (accion){               
+            case "index":
                 request.getRequestDispatcher("index.jsp").forward(request, response);
-                case "puestos":
+             case "puestos":
                 request.getRequestDispatcher("puestos.jsp").forward(request,response);
                 break;
-                case "empleados":
+             case "empleados":
                 request.getRequestDispatcher("empleados.jsp").forward(request,response);
                 break;
-             
-
+             case "login":
+                request.getRequestDispatcher("login.jsp").forward(request,response);
+                break;
+             default:
+                response.sendRedirect("login.jsp"); // Redirigir a la página principal si la acción es desconocida.
+                break;
             }
-        
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -28,7 +28,7 @@
                 Agregar / Actualizar Cliente
             </div>
             <div class="card-body">
-                <form action="ClienteControlador" method="post" onsubmit="return validarFormulario();">
+                <form action="sr_cliente" method="post" onsubmit="return validarFormulario();">
                     <div class="mb-3">
                         <label for="idCliente" class="form-label">ID Cliente</label>
                         <input type="text" class="form-control" name="idCliente" id="idCliente" placeholder="Dejar en blanco para agregar nuevo" readonly>
