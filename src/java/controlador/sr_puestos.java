@@ -22,6 +22,8 @@ public class sr_puestos extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setHeader("target", "FramePrincipal");
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -30,22 +32,21 @@ public class sr_puestos extends HttpServlet {
             out.println("<title>Servlet sr_empleado</title>");
             out.println("</head>");
             out.println("<body>");
-            puesto = new Puesto(Integer.valueOf(request.getParameter("txt_id_puesto")), request.getParameter("txt_puesto"));
-
+            puesto = new Puesto(Integer.valueOf(request.getParameter("lbl_id_puesto")), request.getParameter("txt_puesto"));
             // agregar
             if ("agregar".equals(request.getParameter("btn_agregar"))) {
-                if (puesto.agregarPuesto() > 0) {
+                if (puesto.agregarPuesto()>0) {
                     response.sendRedirect("puestos.jsp");
                 } else {
                     out.println("<h1>-x-x-x-x-x-x-x NO SE AGREGO x-x-x-x-x-x-x-</h1>");
-                    out.println("<a href='puestos.jsp'>Regresar</a>");
+                   out.println("<a href='puestos.jsp'>Regresar</a>");
               }
             }
 
             // modificar
             if ("modificar".equals(request.getParameter("btn_modificar"))) {
                 if (puesto.modificarPuesto() > 0) {
-                    response.sendRedirect("/puestos.jsp");
+                    response.sendRedirect("puestos.jsp");
                 } else {
                     out.println("<h1>-x-x-x-x-x-x-x NO SE MODIFICO x-x-x-x-x-x-x-</h1>");
                     out.println("<a href='puestos.jsp'>Regresar</a>");
