@@ -6,9 +6,8 @@ package modelo;
 
 /**
  *
- * @author yeymi
+ * @author IT
  */
-
 public class Marca {
     private int id_marca;
     private String marca;

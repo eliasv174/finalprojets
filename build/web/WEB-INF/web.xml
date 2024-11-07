@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee           http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <servlet>
+        <servlet-name>controlador</servlet-name>
+        <servlet-class>controlador.controlador</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>sr_cliente</servlet-name>
         <servlet-class>controlador.sr_cliente</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>sr_validar</servlet-name>
-        <servlet-class>controlador.sr_validar</servlet-class>
+        <servlet-name>sr_empleados</servlet-name>
+        <servlet-class>controlador.sr_empleados</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>sr_proveedor</servlet-name>
@@ -17,24 +21,20 @@
         <servlet-class>controlador.sr_puestos</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>sr_validar</servlet-name>
+        <servlet-class>controlador.sr_validar</servlet-class>
+    </servlet>
+    <servlet-mapping>
         <servlet-name>controlador</servlet-name>
-        <servlet-class>controlador.controlador</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>sr_empleados</servlet-name>
-        <servlet-class>controlador.sr_empleados</servlet-class>
-    </servlet>
+        <url-pattern>/controlador</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>sr_cliente</servlet-name>
         <url-pattern>/sr_cliente</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>sr_validar</servlet-name>
-        <url-pattern>/sr_validar</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>sr_puestos_adm</servlet-name>
-        <url-pattern>/sr_puestos_adm</url-pattern>
+        <servlet-name>sr_empleados</servlet-name>
+        <url-pattern>/sr_empleados</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>sr_proveedor</servlet-name>
@@ -45,14 +45,12 @@
         <url-pattern>/sr_puestos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>controlador</servlet-name>
-        <url-pattern>/controlador</url-pattern>
+        <servlet-name>sr_validar</servlet-name>
+        <url-pattern>/sr_validar</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>sr_empleados</servlet-name>
-        <url-pattern>/sr_empleados</url-pattern>
-    </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
 </web-app>

@@ -1,8 +1,9 @@
 <%-- 
     Document   : empleados
-    Created on : 6/11/2024, 3:50:08 p. m.
+    Created on : 7/11/2024, 9:12:03 a. m.
     Author     : IT
 --%>
+
 <%@page import="modelo.Genero"%>
 <%@page import="modelo.Puesto"%>
 <%@page import="modelo.Empleado"%>
@@ -149,3 +150,4 @@
     
     </body>
 </html>
+

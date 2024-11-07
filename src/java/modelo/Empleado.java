@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelo;
-
 import java.sql.PreparedStatement;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;

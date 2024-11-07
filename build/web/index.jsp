@@ -1,3 +1,9 @@
+<%-- 
+    Document   : index
+    Created on : 7/11/2024, 9:12:55 a. m.
+    Author     : IT
+--%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">

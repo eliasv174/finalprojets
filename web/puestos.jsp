@@ -1,8 +1,9 @@
 <%-- 
     Document   : puestos
-    Created on : 6/11/2024, 9:24:24 a. m.
+    Created on : 7/11/2024, 9:15:21 a. m.
     Author     : IT
 --%>
+
 <%@page import="modelo.Puesto"%>
 <%@page import="javax.swing.table.DefaultTableModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -72,3 +73,4 @@
             
     </body>
 </html>
+

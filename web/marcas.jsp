@@ -1,7 +1,7 @@
 <%-- 
-    Document   : vistaMarca
-    Created on : 24/10/2024, 10:09:41 a. m.
-    Author     : yeymi
+    Document   : marcas
+    Created on : 7/11/2024, 9:13:59 a. m.
+    Author     : IT
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.List, modelo.Marca" %>
@@ -127,3 +127,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

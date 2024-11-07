@@ -4,31 +4,22 @@
  */
 package modelo;
 
-import java.time.LocalDateTime;
-
 /**
  *
- * @author yeymi
+ * @author IT
  */
-
 public class Cliente {
-    private int id_cliente;
-    private String nombres;
-    private String apellidos;
-    private String nit;
-    private int genero;
-    private String telefono;
-    private String correo_electronico;
-    private LocalDateTime fecha_ingreso;
+    private int id_cliente,genero;
+    private String nombres, apellidos, nit, telefono, correo_electronico, fecha_ingreso;
 
     public Cliente(){}
-    
-    public Cliente(int id_cliente, String nombres, String apellidos, String nit, int genero, String telefono, String correo_electronico, LocalDateTime fecha_ingreso) {
+
+    public Cliente(int id_cliente, int genero, String nombres, String apellidos, String nit, String telefono, String correo_electronico, String fecha_ingreso) {
         this.id_cliente = id_cliente;
+        this.genero = genero;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.nit = nit;
-        this.genero = genero;
         this.telefono = telefono;
         this.correo_electronico = correo_electronico;
         this.fecha_ingreso = fecha_ingreso;
@@ -40,6 +31,14 @@ public class Cliente {
 
     public void setId_cliente(int id_cliente) {
         this.id_cliente = id_cliente;
+    }
+
+    public int getGenero() {
+        return genero;
+    }
+
+    public void setGenero(int genero) {
+        this.genero = genero;
     }
 
     public String getNombres() {
@@ -66,14 +65,6 @@ public class Cliente {
         this.nit = nit;
     }
 
-    public int isGenero() {
-        return genero;
-    }
-
-    public void setGenero(int genero) {
-        this.genero = genero;
-    }
-
     public String getTelefono() {
         return telefono;
     }
@@ -90,11 +81,11 @@ public class Cliente {
         this.correo_electronico = correo_electronico;
     }
 
-    public LocalDateTime getFecha_ingreso() {
+    public String getFecha_ingreso() {
         return fecha_ingreso;
     }
 
-    public void setFecha_ingreso(LocalDateTime fecha_ingreso) {
+    public void setFecha_ingreso(String fecha_ingreso) {
         this.fecha_ingreso = fecha_ingreso;
     }
     
@@ -102,5 +93,4 @@ public class Cliente {
     public void agregar(){}
     public void modificar(){}
     public void eliminar(){}
-    
 }

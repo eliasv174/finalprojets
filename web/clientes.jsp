@@ -1,7 +1,7 @@
 <%-- 
-    Document   : vistaCliente
-    Created on : 22/10/2024, 9:37:46?p. m.
-    Author     : yeymi
+    Document   : clientes
+    Created on : 7/11/2024, 9:11:32 a. m.
+    Author     : IT
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="java.util.List, modelo.Cliente" %>
