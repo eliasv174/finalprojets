@@ -9,14 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Empleado {
-    private int id_puesto, genero, id;
+    private int id_puesto, genero, id_empleado;
     private String nombres,apellidos,direccion,telefono,dpi,fecha_nacimiento,fecha_inicio_labores,fecha_ingreso;
     private Conexion cn;
 
     public Empleado(){}
     
-    public Empleado(int id, String nombres, String apellidos, String direccion, String telefono, String dpi, String fecha_nacimiento, int id_puesto, String fecha_inicio_labores, String fecha_ingreso, int genero) {
-        this.id = id;
+    public Empleado(int id_empleado, String nombres, String apellidos, String direccion, String telefono, String dpi, String fecha_nacimiento, int id_puesto, String fecha_inicio_labores, String fecha_ingreso, int genero) {
+        this.id_empleado = id_empleado;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.direccion = direccion;
@@ -29,12 +29,12 @@ public class Empleado {
         this.genero = genero;
     }
 
-        public int getId() {
-        return id;
+        public int getId_empleado() {
+        return id_empleado;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_empleado(int id_empleado) {
+        this.id_empleado = id_empleado;
     }
     
     public String getNombres() {
@@ -157,7 +157,7 @@ public class Empleado {
       try{
         PreparedStatement parametro;
         cn = new Conexion();
-        String query =  "INSERT INTO puntoventa_bd.empleados (nombres,apellidos,direccion,telefono,dpi,fecha_nacimiento,id_puesto,fecha_inicio_labores,fecha_ingreso,genero) VALUES (?,?,?,?,?,?,?,?,?,?);;";
+        String query =  "INSERT INTO puntoventa_bd.empleados (nombres,apellidos,direccion,telefono,dpi,fecha_nacimiento,id_puesto,fecha_inicio_labores,fecha_ingreso,genero) VALUES (?,?,?,?,?,?,?,?,?,?);";
         cn.abrir_conexion();
         parametro = (PreparedStatement)cn.conexionBD.prepareStatement(query);
         parametro.setString(1, this.getNombres());
@@ -175,7 +175,6 @@ public class Empleado {
         
     }catch(SQLException ex){
         System.out.println(ex.getMessage()); 
-        retorno = 0;
 }
     return retorno;
 }
@@ -186,7 +185,7 @@ public class Empleado {
     try{
         PreparedStatement parametro;
         cn = new Conexion();
-        String query = "UPDATE puntoventa_bd.empleados SET nombres=?,apellidos=?,direccion=?,telefono=?,dpi=?,fecha_nacimiento=?,id_puesto=?,fecha_inicio_labores=?,fecha_ingreso=?,genero=?)";
+        String query = "UPDATE puntoventa_bd.empleados SET nombres=?,apellidos=?,direccion=?,telefono=?,dpi=?,fecha_nacimiento=?,id_puesto=?,fecha_inicio_labores=?,fecha_ingreso=?,genero=? WHERE id_empleado=?;";
         cn.abrir_conexion();
         parametro = (PreparedStatement)cn.conexionBD.prepareStatement(query);
         parametro.setString(1, getNombres());
@@ -199,6 +198,7 @@ public class Empleado {
         parametro.setString(8, getFecha_inicio_labores());
         parametro.setString(9, getFecha_ingreso());
         parametro.setInt(10, getGenero());
+        parametro.setInt(11, getId_empleado());
         retorno=parametro.executeUpdate();
         cn.cerrar_conexion();
         
@@ -215,16 +215,15 @@ public class Empleado {
     try{
         PreparedStatement parametro;
         cn = new Conexion();
-        String query =  "DELETE FROM puntoventa_bd.empleados where (id_empleado=?);";
+        String query =  "DELETE FROM puntoventa_bd.empleados where id_empleado=?;";
         cn.abrir_conexion();
         parametro = (PreparedStatement)cn.conexionBD.prepareStatement(query);
-        parametro.setInt(1, this.getId_puesto());
+        parametro.setInt(1, getId_empleado());
         retorno=parametro.executeUpdate();
         cn.cerrar_conexion();
         
     }catch(SQLException ex){
         System.out.println(ex.getMessage()); 
-        retorno = 0;
 }
     return retorno;
 }

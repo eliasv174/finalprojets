@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
     <servlet>
-        <servlet-name>controlador</servlet-name>
-        <servlet-class>controlador.controlador</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>sr_cliente</servlet-name>
         <servlet-class>controlador.sr_cliente</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>sr_empleados</servlet-name>
-        <servlet-class>controlador.sr_empleados</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>sr_proveedor</servlet-name>
@@ -24,17 +16,13 @@
         <servlet-name>sr_validar</servlet-name>
         <servlet-class>controlador.sr_validar</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>controlador</servlet-name>
-        <url-pattern>/controlador</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>sr_empleado</servlet-name>
+        <servlet-class>controlador.sr_empleado</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>sr_cliente</servlet-name>
         <url-pattern>/sr_cliente</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>sr_empleados</servlet-name>
-        <url-pattern>/sr_empleados</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>sr_proveedor</servlet-name>
@@ -47,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>sr_validar</servlet-name>
         <url-pattern>/sr_validar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_empleado</servlet-name>
+        <url-pattern>/sr_empleado</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

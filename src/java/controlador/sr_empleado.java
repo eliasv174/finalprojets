@@ -16,7 +16,7 @@ import modelo.Empleado;
  *
  * @author IT
  */
-public class sr_empleados extends HttpServlet {
+public class sr_empleado extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,14 +35,13 @@ public class sr_empleados extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet sr_empleados</title>");
+            out.println("<title>Servlet sr_empleado</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet sr_empleados at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet sr_empleado at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-            
-                        Empleado empleado;
+            Empleado empleado;
          empleado = new Empleado(
     Integer.valueOf(request.getParameter("txt_id")),
     request.getParameter("txt_nombres"),
@@ -58,13 +57,29 @@ public class sr_empleados extends HttpServlet {
 
              if("agregar".equals(request.getParameter("btn_agregar"))){
          if (empleado.agregarEmpl()>0){
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("empleados.jsp");
            } else{
                out.println("<h1>-x-x-x-x-x-x-x NO SE INGRESO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='empleados.jsp'>Regresar</a>");
+         }
+         }
+     //modificar
+         if("modificar".equals(request.getParameter("btn_modificar"))){
+         if (empleado.modificar()>0){
+                response.sendRedirect("empleados.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE MODIFICO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='empleados.jsp'>Regresar</a>");
+         }
+         }         
+             
+             if("eliminar".equals(request.getParameter("btn_eliminar"))){
+         if (empleado.eliminar()>0){
+                response.sendRedirect("empleados.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE ELIMINO x-x-x-x-x-x-x-</h1>");
                out.println("<a href='index.jsp'>Regresar</a>");
          }
-         
-         
          }
             
         }

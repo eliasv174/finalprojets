@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Cliente;
 
 /**
  *
@@ -26,6 +27,8 @@ public class sr_cliente extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    Cliente cliente; 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -38,10 +41,43 @@ public class sr_cliente extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet sr_cliente at " + request.getContextPath() + "</h1>");
+            cliente = new Cliente(Integer.valueOf(request.getParameter("txt_id_cliente")),
+                  Integer.valueOf(request.getParameter("drop_genero")),
+                    request.getParameter("txt_nombres"),
+                    request.getParameter("txt_apellidos"),
+                    request.getParameter("txt_nit"),
+                    request.getParameter("txt_telefono"),
+                    request.getParameter("txt_correo_electronico"),
+                    request.getParameter("txt_fecha_ingreso"));
+            
+            if("agregar".equals(request.getParameter("btn_agregar"))){
+         if (cliente.agregar()>0){
+                response.sendRedirect("clientes.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE INGRESO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='clientes.jsp'>Regresar</a>");
+         }
+         }    
+            
+             if("modificar".equals(request.getParameter("btn_modificar"))){
+         if (cliente.modificar()>0){
+                response.sendRedirect("clientes.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE MODIFICO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='clientes.jsp'>Regresar</a>");
+         }
+         }
+                  //eliminar
+         if("eliminar".equals(request.getParameter("btn_eliminar"))){
+         if (cliente.eliminar()>0){
+                response.sendRedirect("clientes.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE ELIMINO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='clientes.jsp'>Regresar</a>");
+         }
+         }
             out.println("</body>");
             out.println("</html>");
-            
-            
         }
     }
 
