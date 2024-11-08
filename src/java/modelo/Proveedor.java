@@ -6,6 +6,7 @@ package modelo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -15,10 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class Proveedor {
     private int id_proveedor;
-    private String proveedor;
-    private String nit;
-    private String direccion;
-    private String telefono;
+    private String proveedor, nit, direccion, telefono;
     private Conexion cn;
 
     public Proveedor (){}
@@ -100,8 +98,67 @@ public class Proveedor {
                 }
     
     
-    public void agregarProv(){}
-    public void actualizarProv(){}
-    public void eliminarProv(){}
-
+    public int agregar(){
+     int retorno = 0;
+      try{
+        PreparedStatement parametro;
+        cn = new Conexion();
+        String query =  "INSERT INTO proveedores (proveedor,nit,direccion,telefono) VALUES (?,?,?,?)";
+        cn.abrir_conexion();
+        parametro = (PreparedStatement)cn.conexionBD.prepareStatement(query);
+        parametro.setString(1, this.getProveedor());
+        parametro.setString(2, this.getNit());
+        parametro.setString(3, this.getDireccion());
+        parametro.setString(4, this.getTelefono());
+        retorno=parametro.executeUpdate();
+        cn.cerrar_conexion();
+        
+    }catch(SQLException ex){
+        System.out.println(ex.getMessage()); 
 }
+    return retorno;
+}
+    
+    public int modificar(){
+        int retorno = 0;
+    try{
+        PreparedStatement parametro;
+        cn = new Conexion();
+        String query = "UPDATE puntoventa_bd.proveedores SET proveedor=?, nit=?, direccion=?, telefono=? WHERE (id_proveedor = ?)";
+
+        cn.abrir_conexion();
+        parametro = (PreparedStatement)cn.conexionBD.prepareStatement(query);
+        parametro.setString(1, getProveedor());
+        parametro.setString(2, getNit());
+        parametro.setString(3, getDireccion());
+        parametro.setString(4, getTelefono());
+        parametro.setInt(5, getId_proveedor());
+        retorno=parametro.executeUpdate();
+        cn.cerrar_conexion();
+        
+        }catch(SQLException ex){
+        System.out.println(ex.getMessage()); 
+        retorno = 0;
+        }
+    return retorno;
+    }
+
+
+    public int eliminarProv(){int retorno = 0;
+    try{
+        PreparedStatement parametro;
+        cn = new Conexion();
+        String query =  "DELETE FROM puntoventa_bd.proveedores WHERE (id_proveedor = ?);";
+        cn.abrir_conexion();
+        parametro = (PreparedStatement)cn.conexionBD.prepareStatement(query);
+        parametro.setInt(1, getId_proveedor());
+        retorno=parametro.executeUpdate();
+        cn.cerrar_conexion();
+        
+    }catch(SQLException ex){
+        System.out.println(ex.getMessage()); 
+}
+    return retorno;
+}
+}
+    

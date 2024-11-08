@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Proveedor;
 
 /**
  *
@@ -28,6 +29,7 @@ public class sr_proveedor extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    Proveedor proveedor;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -42,6 +44,40 @@ public class sr_proveedor extends HttpServlet {
             out.println("<h1>Servlet sr_proveedor at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            proveedor = new Proveedor(Integer.valueOf(request.getParameter("txt_id_proveedor")),
+                    request.getParameter("txt_proveedor"),
+                    request.getParameter("txt_direccion"),
+                    request.getParameter("txt_nit"),
+                    request.getParameter("txt_telefono"));
+            
+            if("agregar".equals(request.getParameter("btn_agregar"))){
+         if (proveedor.agregar()>0){
+                response.sendRedirect("proveedores.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE INGRESO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='proveedores.jsp'>Regresar</a>");
+         }
+         }    
+            
+             if("modificar".equals(request.getParameter("btn_modificar"))){
+         if (proveedor.modificar()>0){
+                response.sendRedirect("proveedores.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE MODIFICO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='proveedores.jsp'>Regresar</a>");
+         }
+         }
+                  //eliminar
+         if("eliminar".equals(request.getParameter("btn_eliminar"))){
+         if (proveedor.eliminarProv()>0){
+                response.sendRedirect("proveedores.jsp");
+           } else{
+               out.println("<h1>-x-x-x-x-x-x-x NO SE ELIMINO x-x-x-x-x-x-x-</h1>");
+               out.println("<a href='proveedores.jsp'>Regresar</a>");
+         }
+         }
+            
+            
         }
     }
 
