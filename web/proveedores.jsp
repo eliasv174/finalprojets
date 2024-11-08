@@ -1,8 +1,9 @@
 <%-- 
     Document   : proveedores
-    Created on : 5/11/2024, 5:25:38 p. m.
+    Created on : 7/11/2024, 9:14:50 a. m.
     Author     : IT
 --%>
+
 <%@page import="javax.swing.table.DefaultTableModel"%>
 <%@page import="modelo.Puesto"%>
 <%@page import="modelo.Empleado"%>

@@ -1,8 +1,9 @@
 <%-- 
     Document   : puestos
-    Created on : 6/11/2024, 9:24:24 a. m.
+    Created on : 7/11/2024, 9:15:21 a. m.
     Author     : IT
 --%>
+
 <%@page import="modelo.Puesto"%>
 <%@page import="javax.swing.table.DefaultTableModel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -28,7 +29,8 @@
                     <button name="btn_agregar" id="btn_agregar" value="agregar" class="btn btn-primary btn-lg" onclick="javascript:if(!confirm('¿Desea Agregar Puesto?'))" style="background-color: #1e74a7; border:none ">AGREGAR</button>
                     <button name="btn_modificar" id="btn_modificar" value="modificar" class="btn btn-primary btn-lg" onclick="javascript:if(!confirm('¿Desea Modificar Puesto?'))return false" style="background-color: #1e74a7; border:none ">MODIFICAR</button>
                     <button name="btn_eliminar" id="btn_eliminar" value="eliminar" class="btn btn-primary btn-lg" onclick="javascript:if(!confirm('¿Desea Eliminar Puesto?'))return false" style="background-color: #1e74a7; border:none">ELIMINAR</button>
-                    
+                    <button name="btn_empleados" id="btn_empleados" value="" class="btn btn-primary btn-lg" style="background-color: #1e74a7; border:none" onclick="javascript:if(confirm('¿Desea ir a empleados?')) { window.location.href='empleados.jsp'; }"))return false">AGREGAR EMPLEADO</button>
+
                     
         </form>
             <table class="table table-bordered">
@@ -72,3 +74,4 @@
             
     </body>
 </html>
+

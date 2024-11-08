@@ -1,9 +1,10 @@
 <%-- 
     Document   : login
-    Created on : 22/10/2024, 9:59:42?a. m.
-    Author     : yeymi
+    Created on : 7/11/2024, 9:13:21â€¯a.Â m.
+    Author     : IT
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,13 +84,13 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Iniciar Sesión</h2>
+        <h2>Iniciar SesiÃ³n</h2>
         
         <!-- Formulario de login -->
         <form action="sr_validar" method="POST">
             <input type="text" name="usuario" placeholder="Usuario" required><br>
-            <input type="password" name="contrasena" placeholder="Contraseña" required><br>
-            <button type="submit">Iniciar Sesión</button>
+            <input type="password" name="contrasena" placeholder="ContraseÃ±a" required><br>
+            <button type="submit">Iniciar SesiÃ³n</button>
         </form>
         
         
@@ -97,7 +98,7 @@
             if (request.getParameter("error") != null) {
         %>
             <div class="error-message">
-                Usuario o contraseña incorrectos.
+                Usuario o contraseÃ±a incorrectos.
             </div>
         <%
             }
@@ -105,4 +106,3 @@
     </div>
 </body>
 </html>
-

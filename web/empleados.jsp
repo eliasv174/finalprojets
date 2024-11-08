@@ -1,8 +1,9 @@
 <%-- 
     Document   : empleados
-    Created on : 6/11/2024, 3:50:08 p. m.
+    Created on : 7/11/2024, 9:12:03 a. m.
     Author     : IT
 --%>
+
 <%@page import="modelo.Genero"%>
 <%@page import="modelo.Puesto"%>
 <%@page import="modelo.Empleado"%>
@@ -28,7 +29,7 @@
         <br>
     <center><h1>Formulario Empleados</h1></center>
         <div class="container">
-            <form action="sr_empleados" method="post" class="form-group">
+            <form action="sr_empleado" method="post" class="form-group">
                 <label for="lbl_id"><b>Id Empleado:</b></label>
                 <input type="text" name="txt_id" id="txt_id" class="form-control" value="0" readonly>
                 <label for="lbl_nombres"><b>Nombres:</b></label>
@@ -44,7 +45,7 @@
                 <label for="lbl_fecha_nacimiento"><b>Fecha de Nacimiento:</b></label>
                 <input type="date" name="txt_fecha_nacimiento" id="txt_fecha_nacimiento" class="form-control" placeholder="Ejemplo: 01/01/2000" required>
                 <label for="lbl_fecha_labores"><b>Fecha de Inicio de Labores:</b></label>
-                <input type="date" name="txt_fecha_labores" id="txt_fecha_labores" class="form-control" placeholder="Ejemplo: 01/01/2000" required>
+                <input type="date" name="txt_fecha_inicio_labores" id="txt_fecha_inicio_labores" class="form-control" placeholder="Ejemplo: 01/01/2000" required>
                 <label for="lbl_fecha_ingreso"><b>Fecha de Ingreso:</b></label>
                 <input type="date" name="txt_fecha_ingreso" id="txt_fecha_ingreso" class="form-control" placeholder="Ejemplo: 01/01/2000" required>
                 
@@ -73,7 +74,8 @@
                     <button name="btn_agregar" id="btn_agregar" value="agregar" class="btn btn-primary btn-lg" style="background-color: #1e74a7; border:none" onclick="javascript:if(!confirm('¿Desea Agregar?'))return false">AGREGAR</button>
                     <button name="btn_modificar" id="btn_modificar" value="modificar" class="btn btn-primary btn-lg" style="background-color: #1e74a7; border:none" onclick="javascript:if(!confirm('¿Desea Modificar?'))return false">MODIFICAR</button>
                     <button name="btn_eliminar" id="btn_eliminar" value="eliminar" class="btn btn-primary btn-lg" style="background-color: #1e74a7; border:none" onclick="javascript:if(!confirm('¿Desea Eliminar?'))return false">ELIMINAR</button>
-               </form>
+                    <button name="btn_puestos" id="btn_puestos" value="" class="btn btn-primary btn-lg" style="background-color: #1e74a7; border:none" onclick="javascript:if(confirm('¿Desea ir a Puestos?')) { window.location.href='puestos.jsp'; }"))return false">AGREGAR PUESTOS</button>
+            </form>
                <table class="table table-bordered">
     <thead>
       <tr>
@@ -139,7 +141,7 @@
                 $("#txt_dpi").val(dpi);
                 $("#txt_fecha_nacimiento").val(fecha_nacimiento);
                 $("#drop_puesto").val(id_puesto);
-                $("#txt_fecha_labores").val(fecha_inicio_labores);
+                $("#txt_fecha_inicio_labores").val(fecha_inicio_labores);
                 $("#txt_fecha_ingreso").val(fecha_ingreso);
                 $("#drop_genero").val(id_genero);
                 
@@ -149,3 +151,4 @@
     
     </body>
 </html>
+
