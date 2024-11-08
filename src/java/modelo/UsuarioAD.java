@@ -8,13 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 /**
  *
- * @author yeymi
+ * @author IT
  */
-
-
-public class UsuarioDAO {
+public class UsuarioAD {
 
     Conexion cn = new Conexion();
     Connection con;
@@ -55,5 +54,8 @@ public class UsuarioDAO {
             }
         }
         return 0;  // Usuario no válido
-    }}
+    }
+}
+
+
 

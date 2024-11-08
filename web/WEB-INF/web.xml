@@ -20,6 +20,22 @@
         <servlet-name>sr_empleado</servlet-name>
         <servlet-class>controlador.sr_empleado</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>sr_marca</servlet-name>
+        <servlet-class>controlador.sr_marca</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_validar_admin</servlet-name>
+        <servlet-class>controlador.sr_validar_admin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_validar_adm</servlet-name>
+        <servlet-class>controlador.sr_validar_adm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_usuario</servlet-name>
+        <servlet-class>controlador.sr_usuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>sr_cliente</servlet-name>
         <url-pattern>/sr_cliente</url-pattern>
@@ -39,6 +55,22 @@
     <servlet-mapping>
         <servlet-name>sr_empleado</servlet-name>
         <url-pattern>/sr_empleado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_marca</servlet-name>
+        <url-pattern>/sr_marca</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_validar_admin</servlet-name>
+        <url-pattern>/sr_validar_admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_validar_adm</servlet-name>
+        <url-pattern>/sr_validar_adm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_usuario</servlet-name>
+        <url-pattern>/sr_usuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
