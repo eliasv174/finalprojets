@@ -3,11 +3,12 @@
     Created on : 7/11/2024, 9:12:55 a. m.
     Author     : IT
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <script src="https://kit.fontawesome.com/d28e16a2cf.js" crossorigin="anonymous"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" width=device-width, initial-scale=1.0">
         <title>PROYECTO FINAL G5</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -233,6 +234,34 @@
                 </div>
             </div>
         </nav>
+
+        <div class="Container mt-2">
+            <div class="row">
+ 
+                <c:forEach var="p" items="${productos}">
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-header"> 
+                                <label>${p.getProducto}</label>
+                            </div>
+                            <div class="card-body">
+                                <i>Q. 150.00</i>
+                                <<img src="" width="200" height="180"/>
+                            </div>    
+                            <div class="card-footer text-center"> 
+                                <label>Descripcion Producto</label>
+                                <div>
+                                    <a href="#" class="btn btn-outline-info">Agregar a Carrito</a>
+                                    <a href="#" class="btn btn-danger">Comprar</a>
+                                </div>
+
+                            </div>            
+                        </div>
+                    </c:forEach>
+                   
+                </div>
+            </div>                    
+        </div>
         <div class="m-4" style="height: 750px;">
             <iframe id="FramePrincipal" name="FramePrincipal" src="fondo.jsp" style="height:100%; width:100%; border:none"></iframe>
         </div>
@@ -253,7 +282,7 @@
             </div>
         </div>
         <script>
-        // Función para abrir el modal
+            // Función para abrir el modal
             function openModal() {
                 const modal = document.getElementById('loginModal');
                 if (modal) {
@@ -262,11 +291,11 @@
             }
 
             // Función para cerrar el modal al hacer clic fuera
-        //    function closeModalOutside(event) {
-        //        if (event.target === document.getElementById('loginModal')) {
+            //    function closeModalOutside(event) {
+            //        if (event.target === document.getElementById('loginModal')) {
             //           closeModal();
             //       }
-        //    }
+            //    }
 
             // Función para cerrar el modal
             function closeModal() {
