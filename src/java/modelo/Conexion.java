@@ -15,10 +15,10 @@ import java.sql.SQLException;
 public class Conexion {
     public Connection conexionBD;
     private final String bd = "puntoventa_bd";
-    private final String puerto = "3306";
-    private final String urlConexion = String.format("jdbc:mysql://localhost:%s/%s?serverTimezone=UTC", puerto, bd);
-    private final String usuario = "usr_empresa";
-    private final String contra = "Empres@123";
+    private final String puerto = "3307";
+    private final String urlConexion = String.format("jdbc:mysql://127.0.0.1:%s/%s?serverTimezone=UTC", puerto, bd);
+    private final String usuario = "root";
+    private final String contra = "Elias174+-";
     private final String jdbc = "com.mysql.cj.jdbc.Driver";
 
     // Método para abrir la conexión y devolver el objeto Connection
