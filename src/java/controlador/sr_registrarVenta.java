@@ -6,14 +6,13 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.ClienteDAO;
+import modelo.Cliente;
 import modelo.Producto;
 import modelo.ProductoDAO;
 
@@ -21,12 +20,13 @@ import modelo.ProductoDAO;
  *
  * @author PC
  */
-@WebServlet(name = "sr_producto", urlPatterns = {"/sr_producto"})
-public class sr_producto extends HttpServlet {
+@WebServlet(name = "sr_registrarVenta", urlPatterns = {"/sr_registrarVenta"})
+public class sr_registrarVenta extends HttpServlet {
 
     Producto p = new Producto();
     ProductoDAO pdao = new ProductoDAO();
-    List<Producto> productos = new ArrayList<>();
+    Cliente c = new Cliente();
+    ClienteDAO cdao = new ClienteDAO();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,29 +39,29 @@ public class sr_producto extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       /* String accion = request.getParameter("accion");
-       switch (accion) {
-            case "BuscarProducto":
-                int id_producto = Integer.parseInt(request.getParameter("codigoproducto"));
-                p = pdao.ListarId(id_producto);
-                request.setAttribute("producto", p);
-                break;
-            default:
-                request.getRequestDispatcher("registrarVenta.jsp").forward(request, response);
-                
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String accion = request.getParameter("accion");
+            switch (accion) {
+                case "BuscarCliente":
+
+                    String nit = request.getParameter("codigocliente");
+                    c.setNit(nit);
+                    c = cdao.buscar(nit);
+                    request.setAttribute("c", c);
+                    break;
+                case "BuscarProducto":
+                    int id_producto = Integer.parseInt(request.getParameter("codigoproducto"));
+                    p.setId_producto(id_producto);
+                    p = pdao.ListarId(id_producto);
+                    request.setAttribute("pr", p);
+                    break;
+                default:
+                    request.getRequestDispatcher("registrarVenta.jsp").forward(request, response);
+            }
+            request.getRequestDispatcher("registrarVenta.jsp").forward(request, response);
         }
-        request.getRequestDispatcher("registrarVenta.jsp").forward(request, response);*/
-
-        /*productos = pdao.Listar();
-        switch (accion) {
-            case "ejemplo":
-
-                break;
-            default:
-                request.setAttribute("productos", productos);
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-
-        }*/
 
     }
 

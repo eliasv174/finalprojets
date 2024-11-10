@@ -3,12 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package modelo;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Elias
  */
 public class Producto {
+
     private int id_producto;
     private String producto;
     private int id_marca;
@@ -18,9 +29,10 @@ public class Producto {
     private double precio_venta;
     private int existencia;
     private String fecha_ingreso;
-    
-   public Producto() {
-      }
+    private Conexion cn;
+
+    public Producto() {
+    }
 
     public Producto(int id_producto, String producto, int id_marca, String descripcion, InputStream imagen, double precio_costo, double precio_venta, int existencia, String fecha_ingreso) {
         this.id_producto = id_producto;
@@ -105,5 +117,104 @@ public class Producto {
     public void setExistencia(int existencia) {
         this.existencia = existencia;
     }
-    
+
+    public boolean agregarProducto(Producto producto) {
+        String sql = "INSERT INTO productos (producto, id_marca, descripcion, imagen, precio_costo, precio_venta, existencia, fecha_ingreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = cn.prepareStatement(sql)) {
+            pst.setString(1, producto.getProducto());
+            pst.setInt(2, producto.getId_marca());
+            pst.setString(3, producto.getDescripcion());
+            pst.setBlob(4, producto.getImagen());
+            pst.setDouble(5, producto.getPrecio_costo());
+            pst.setDouble(6, producto.getPrecio_venta());
+            pst.setInt(7, producto.getExistencia());
+            pst.setString(8, producto.getFecha_ingreso());
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al crear producto: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public Producto leerProductoId(int id_producto) {
+        String sql = "SELECT * FROM productos WHERE id_producto = ?";
+        try (PreparedStatement pst = cn.prepareStatement(sql)) {
+            pst.setInt(1, id_producto);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return new Producto(
+                        rs.getInt("id_producto"),
+                        rs.getString("producto"),
+                        rs.getInt("id_marca"),
+                        rs.getString("descripcion"),
+                        rs.getBinaryStream("imagen"),
+                        rs.getDouble("precio_costo"),
+                        rs.getDouble("precio_venta"),
+                        rs.getInt("existencia"),
+                        rs.getString("fecha_ingreso")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener producto: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public DefaultTableModel leerProductos() {
+        String[] columnas = {"ID", "Producto", "ID Marca", "Descripción", "Precio Costo", "Precio Venta", "Existencia", "Fecha Ingreso"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+        String sql = "SELECT id_producto, producto, id_marca, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso FROM productos";
+
+        try (PreparedStatement pst = cn.prepareStatement(sql); ResultSet rs = pst.executeQuery()) {
+            while (rs.next()) {
+                Object[] fila = new Object[8];
+                fila[0] = rs.getInt("id_producto");
+                fila[1] = rs.getString("producto");
+                fila[2] = rs.getInt("id_marca");
+                fila[3] = rs.getString("descripcion");
+                fila[4] = rs.getDouble("precio_costo");
+                fila[5] = rs.getDouble("precio_venta");
+                fila[6] = rs.getInt("existencia");
+                fila[7] = rs.getString("fecha_ingreso");
+                modelo.addRow(fila);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener productos: " + e.getMessage());
+        }
+        return modelo;
+    }
+
+    public boolean actualizarProducto(Producto producto) {
+        String sql = "UPDATE productos SET producto = ?, id_marca = ?, descripcion = ?, imagen = ?, precio_costo = ?, precio_venta = ?, existencia = ?, fecha_ingreso = ? WHERE id_producto = ?";
+        try (PreparedStatement pst = cn.prepareStatement(sql)) {
+            pst.setString(1, producto.getProducto());
+            pst.setInt(2, producto.getId_marca());
+            pst.setString(3, producto.getDescripcion());
+            pst.setBlob(4, producto.getImagen());
+            pst.setDouble(5, producto.getPrecio_costo());
+            pst.setDouble(6, producto.getPrecio_venta());
+            pst.setInt(7, producto.getExistencia());
+            pst.setString(8, producto.getFecha_ingreso());
+            pst.setInt(9, producto.getId_producto());
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar producto: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean eliminarProducto(int id_producto) {
+        String sql = "DELETE FROM productos WHERE id_producto = ?";
+        try (PreparedStatement pst = cn.prepareStatement(sql)) {
+            pst.setInt(1, id_producto);
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar producto: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

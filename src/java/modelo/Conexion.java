@@ -6,6 +6,7 @@ package modelo;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -43,6 +44,10 @@ public class Conexion {
         } catch (SQLException ex) {
             System.out.println("Error al cerrar la conexión: " + ex.getMessage());
         }
+    }
+
+    PreparedStatement prepareStatement(String sql) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 

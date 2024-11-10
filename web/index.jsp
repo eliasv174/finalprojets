@@ -3,7 +3,6 @@
     Created on : 7/11/2024, 9:12:55 a. m.
     Author     : IT
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -183,6 +182,7 @@
                             PRODUCTOS
                         </a>
                         <div class="dropdown-menu">
+                            
                             <a class="dropdown-item" href="productos.jsp" target="FramePrincipal">EDITAR PRODUCTOS</a>
                             <a class="dropdown-item" href="marcas.jsp" target="FramePrincipal">EDITAR MARCAS</a>
                         </div>
@@ -218,6 +218,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="reportes.jsp" target="FramePrincipal" style="color: white;">REPORTES</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="registrarVenta.jsp" target="FramePrincipal" style="color: white;">Nueva Venta</a>
+                    </li>
                 </ul>
 
                 <div class="dropdown">
@@ -235,33 +238,7 @@
             </div>
         </nav>
 
-        <div class="Container mt-2">
-            <div class="row">
- 
-                <c:forEach var="p" items="${productos}">
-                    <div class="col-sm-4">
-                        <div class="card">
-                            <div class="card-header"> 
-                                <label>${p.getProducto}</label>
-                            </div>
-                            <div class="card-body">
-                                <i>Q. 150.00</i>
-                                <<img src="" width="200" height="180"/>
-                            </div>    
-                            <div class="card-footer text-center"> 
-                                <label>Descripcion Producto</label>
-                                <div>
-                                    <a href="#" class="btn btn-outline-info">Agregar a Carrito</a>
-                                    <a href="#" class="btn btn-danger">Comprar</a>
-                                </div>
-
-                            </div>            
-                        </div>
-                    </c:forEach>
-                   
-                </div>
-            </div>                    
-        </div>
+        
         <div class="m-4" style="height: 750px;">
             <iframe id="FramePrincipal" name="FramePrincipal" src="fondo.jsp" style="height:100%; width:100%; border:none"></iframe>
         </div>

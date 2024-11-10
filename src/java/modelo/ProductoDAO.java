@@ -27,6 +27,34 @@ public class ProductoDAO {
     PreparedStatement ps;
     ResultSet rs;
 
+    public Producto ListarId(int id){
+         Producto pr = new Producto();
+        String sql = "select * from productos where id_producto="+id;
+        try {
+            con = cn.abrir_conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+               
+                pr.setId_producto(rs.getInt(1));
+                pr.setProducto(rs.getString(2));
+                pr.setId_marca(rs.getInt(3));
+                pr.setDescripcion(rs.getString(4));
+                pr.setImagen(rs.getBinaryStream(5));
+                pr.setPrecio_costo(rs.getDouble(6));
+                pr.setPrecio_venta(rs.getDouble(7));
+                pr.setExistencia(rs.getInt(8));
+                pr.setFecha_ingreso(rs.getString(9));
+               
+                
+            }
+
+        } catch (Exception e) {
+
+        }
+        return pr;
+    }
+
     public List Listar() {
         List<Producto> productos = new ArrayList();
         String sql = "select * from productos";
@@ -54,8 +82,10 @@ public class ProductoDAO {
         }
         return productos;
     }
+    
+    
     public void ListarImg(int id,HttpServletResponse response){
-        String sql="select * from producto where id_producto="+id;
+        String sql="select * from productos where id_producto="+id;
         InputStream inputStream=null;
         OutputStream outputStream=null;
         BufferedInputStream bufferedInputStream=null;
