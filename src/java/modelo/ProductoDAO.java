@@ -9,48 +9,61 @@ import java.io.BufferedOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import modelo.Conexion;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashSet;
+import java.util.Set;
+import modelo.Producto;
 /**
  *
  * @author PC
  */
 public class ProductoDAO {
-
     Connection con;
-    Conexion cn = new Conexion();
     PreparedStatement ps;
     ResultSet rs;
+    Conexion cn = new Conexion(); // Suponiendo que tienes una clase de conexión llamada 'Conexion'
 
-    public Producto ListarId(int id){
-         Producto pr = new Producto();
-        String sql = "select * from productos where id_producto="+id;
+    public Producto ListarId(int id) {
+        Producto pr = new Producto();
+        String sql = "SELECT * FROM productos WHERE id_producto=" + id;
         try {
             con = cn.abrir_conexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
+                // Inicializar el objeto Producto solo si encuentra resultados
+                pr.setId_producto(rs.getInt("id_producto"));
+                pr.setProducto(rs.getString("producto"));
+                pr.setId_marca(rs.getInt("id_marca"));
+                pr.setDescripcion(rs.getString("descripcion"));
+                pr.setImagen(rs.getBinaryStream("imagen"));
+
+                // Almacena la ruta de la imagen (ajusta según la estructura de la base de datos)
+                /*String rutaImagen = rs.getString("imagen"); // Suponiendo que el campo imagen almacena la ruta
+                pr.setImagen(rutaImagen);*/
                
-                pr.setId_producto(rs.getInt(1));
-                pr.setProducto(rs.getString(2));
-                pr.setId_marca(rs.getInt(3));
-                pr.setDescripcion(rs.getString(4));
-                pr.setImagen(rs.getBinaryStream(5));
-                pr.setPrecio_costo(rs.getDouble(6));
-                pr.setPrecio_venta(rs.getDouble(7));
-                pr.setExistencia(rs.getInt(8));
-                pr.setFecha_ingreso(rs.getString(9));
-               
-                
+
+                pr.setPrecio_costo(rs.getDouble("precio_costo"));
+                pr.setPrecio_venta(rs.getDouble("precio_venta"));
+                pr.setExistencia(rs.getInt("existencia"));
+                pr.setFecha_ingreso(rs.getString("fecha_ingreso"));
             }
-
         } catch (Exception e) {
-
+            System.out.println("Error al listar producto por ID: " + e.getMessage());
+        } finally {
+            // Cerrar conexiones para evitar fugas
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (con != null) con.close();
+            } catch (Exception e) {
+                System.out.println("Error al cerrar conexiones: " + e.getMessage());
+            }
         }
         return pr;
     }

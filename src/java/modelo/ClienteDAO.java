@@ -43,7 +43,7 @@ public class ClienteDAO {
         return c;
     }
 
-    public List Listar() {
+   /* public List Listar() {
         List<Cliente> clientes = new ArrayList();
         String sql = "select * from clientes";
         try {
@@ -80,6 +80,6 @@ public class ClienteDAO {
         } catch (Exception e) {
         }
 
-    }
+    }*/
 
 }

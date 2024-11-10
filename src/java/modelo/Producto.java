@@ -117,104 +117,130 @@ public class Producto {
     public void setExistencia(int existencia) {
         this.existencia = existencia;
     }
-
-    public boolean agregarProducto(Producto producto) {
-        String sql = "INSERT INTO productos (producto, id_marca, descripcion, imagen, precio_costo, precio_venta, existencia, fecha_ingreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement pst = cn.prepareStatement(sql)) {
-            pst.setString(1, producto.getProducto());
-            pst.setInt(2, producto.getId_marca());
-            pst.setString(3, producto.getDescripcion());
-            pst.setBlob(4, producto.getImagen());
-            pst.setDouble(5, producto.getPrecio_costo());
-            pst.setDouble(6, producto.getPrecio_venta());
-            pst.setInt(7, producto.getExistencia());
-            pst.setString(8, producto.getFecha_ingreso());
-            pst.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            System.out.println("Error al crear producto: " + e.getMessage());
-            return false;
+    public int agregarProducto() {
+        int retorno = 0;
+        try {
+            PreparedStatement parametro;
+            String query = "INSERT INTO productos (producto, id_marca, descripcion, imagen, precio_costo, precio_venta, existencia, fecha_ingreso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            cn.abrir_conexion();
+            parametro = cn.conexionBD.prepareStatement(query);
+            parametro.setString(1, producto);
+            parametro.setInt(2, id_marca);
+            parametro.setString(3, descripcion);
+            parametro.setBlob(4, imagen);
+            parametro.setDouble(5, precio_costo);
+            parametro.setDouble(6, precio_venta);
+            parametro.setInt(7, existencia);
+            parametro.setString(8, fecha_ingreso);
+            retorno = parametro.executeUpdate();
+            cn.cerrar_conexion();
+        } catch (SQLException ex) {
+            System.out.println("Error al agregar producto: " + ex.getMessage());
+            retorno = 0;
         }
+        return retorno;
     }
 
-    public Producto leerProductoId(int id_producto) {
-        String sql = "SELECT * FROM productos WHERE id_producto = ?";
-        try (PreparedStatement pst = cn.prepareStatement(sql)) {
-            pst.setInt(1, id_producto);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return new Producto(
-                        rs.getInt("id_producto"),
-                        rs.getString("producto"),
-                        rs.getInt("id_marca"),
-                        rs.getString("descripcion"),
-                        rs.getBinaryStream("imagen"),
-                        rs.getDouble("precio_costo"),
-                        rs.getDouble("precio_venta"),
-                        rs.getInt("existencia"),
-                        rs.getString("fecha_ingreso")
-                );
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener producto: " + e.getMessage());
+    // Método para actualizar producto
+    public int actualizarProducto() {
+        int retorno = 0;
+        try {
+            PreparedStatement parametro;
+            String query = "UPDATE productos SET producto=?, id_marca=?, descripcion=?, imagen=?, precio_costo=?, precio_venta=?, existencia=?, fecha_ingreso=? WHERE id_producto=?";
+            
+            cn.abrir_conexion();
+            parametro = cn.conexionBD.prepareStatement(query);
+            parametro.setString(1, producto);
+            parametro.setInt(2, id_marca);
+            parametro.setString(3, descripcion);
+            parametro.setBlob(4, imagen);
+            parametro.setDouble(5, precio_costo);
+            parametro.setDouble(6, precio_venta);
+            parametro.setInt(7, existencia);
+            parametro.setString(8, fecha_ingreso);
+            parametro.setInt(9, id_producto);
+            retorno = parametro.executeUpdate();
+            cn.cerrar_conexion();
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar producto: " + ex.getMessage());
+            retorno = 0;
         }
-        return null;
+        return retorno;
     }
 
+    // Método para eliminar producto
+    public int eliminarProducto() {
+        int retorno = 0;
+        try {
+            PreparedStatement parametro;
+            String query = "DELETE FROM productos WHERE id_producto=?";
+            
+            cn.abrir_conexion();
+            parametro = cn.conexionBD.prepareStatement(query);
+            parametro.setInt(1, id_producto);
+            retorno = parametro.executeUpdate();
+            cn.cerrar_conexion();
+        } catch (SQLException ex) {
+            System.out.println("Error al eliminar producto: " + ex.getMessage());
+            retorno = 0;
+        }
+        return retorno;
+    }
+
+    // Método para consultar producto
+    public ResultSet consultarProducto(int idProducto) {
+        ResultSet rs = null;
+        try {
+            String query = "SELECT * FROM productos WHERE id_producto=?";
+            cn.abrir_conexion();
+            PreparedStatement parametro = cn.conexionBD.prepareStatement(query);
+            parametro.setInt(1, idProducto);
+            rs = parametro.executeQuery();
+        } catch (SQLException ex) {
+            System.out.println("Error al consultar producto: " + ex.getMessage());
+        }
+        return rs;
+    }
     public DefaultTableModel leerProductos() {
-        String[] columnas = {"ID", "Producto", "ID Marca", "Descripción", "Precio Costo", "Precio Venta", "Existencia", "Fecha Ingreso"};
-        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
-        String sql = "SELECT id_producto, producto, id_marca, descripcion, precio_costo, precio_venta, existencia, fecha_ingreso FROM productos";
-
-        try (PreparedStatement pst = cn.prepareStatement(sql); ResultSet rs = pst.executeQuery()) {
-            while (rs.next()) {
-                Object[] fila = new Object[8];
-                fila[0] = rs.getInt("id_producto");
-                fila[1] = rs.getString("producto");
-                fila[2] = rs.getInt("id_marca");
-                fila[3] = rs.getString("descripcion");
-                fila[4] = rs.getDouble("precio_costo");
-                fila[5] = rs.getDouble("precio_venta");
-                fila[6] = rs.getInt("existencia");
-                fila[7] = rs.getString("fecha_ingreso");
-                modelo.addRow(fila);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener productos: " + e.getMessage());
+    DefaultTableModel tableModel = new DefaultTableModel();
+    cn = new Conexion();
+    try {
+        String query = "SELECT * FROM productos;";
+        cn.abrir_conexion();
+        ResultSet rs = cn.conexionBD.createStatement().executeQuery(query);
+        
+        // Definir las columnas del DefaultTableModel
+        tableModel.addColumn("ID Producto");
+        tableModel.addColumn("Producto");
+        tableModel.addColumn("ID Marca");
+        tableModel.addColumn("Descripción");
+        tableModel.addColumn("Precio Costo");
+        tableModel.addColumn("Precio Venta");
+        tableModel.addColumn("Existencia");
+        tableModel.addColumn("Fecha Ingreso");
+        
+        // Llenar el DefaultTableModel con los datos del ResultSet
+        while (rs.next()) {
+            Object[] fila = new Object[8];
+            fila[0] = rs.getInt("id_producto");
+            fila[1] = rs.getString("producto");
+            fila[2] = rs.getInt("id_marca");
+            fila[3] = rs.getString("descripcion");
+            fila[4] = rs.getDouble("precio_costo");
+            fila[5] = rs.getDouble("precio_venta");
+            fila[6] = rs.getInt("existencia");
+            fila[7] = rs.getDate("fecha_ingreso");
+            tableModel.addRow(fila);
         }
-        return modelo;
+        
+        cn.cerrar_conexion();
+    } catch (SQLException ex) {
+        System.out.println("Error leer_productos: " + ex.getMessage());
     }
-
-    public boolean actualizarProducto(Producto producto) {
-        String sql = "UPDATE productos SET producto = ?, id_marca = ?, descripcion = ?, imagen = ?, precio_costo = ?, precio_venta = ?, existencia = ?, fecha_ingreso = ? WHERE id_producto = ?";
-        try (PreparedStatement pst = cn.prepareStatement(sql)) {
-            pst.setString(1, producto.getProducto());
-            pst.setInt(2, producto.getId_marca());
-            pst.setString(3, producto.getDescripcion());
-            pst.setBlob(4, producto.getImagen());
-            pst.setDouble(5, producto.getPrecio_costo());
-            pst.setDouble(6, producto.getPrecio_venta());
-            pst.setInt(7, producto.getExistencia());
-            pst.setString(8, producto.getFecha_ingreso());
-            pst.setInt(9, producto.getId_producto());
-            pst.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            System.out.println("Error al actualizar producto: " + e.getMessage());
-            return false;
-        }
-    }
-
-    public boolean eliminarProducto(int id_producto) {
-        String sql = "DELETE FROM productos WHERE id_producto = ?";
-        try (PreparedStatement pst = cn.prepareStatement(sql)) {
-            pst.setInt(1, id_producto);
-            pst.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            System.out.println("Error al eliminar producto: " + e.getMessage());
-            return false;
-        }
-    }
+    return tableModel;
+}
 
 }
+   
+
