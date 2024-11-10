@@ -3,11 +3,11 @@
     Created on : 7/11/2024, 9:12:55 a. m.
     Author     : IT
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <script src="https://kit.fontawesome.com/d28e16a2cf.js" crossorigin="anonymous"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" width=device-width, initial-scale=1.0">
         <title>PROYECTO FINAL G5</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -182,6 +182,7 @@
                             PRODUCTOS
                         </a>
                         <div class="dropdown-menu">
+                            
                             <a class="dropdown-item" href="productos.jsp" target="FramePrincipal">EDITAR PRODUCTOS</a>
                             <a class="dropdown-item" href="marcas.jsp" target="FramePrincipal">EDITAR MARCAS</a>
                         </div>
@@ -217,6 +218,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="reportes.jsp" target="FramePrincipal" style="color: white;">REPORTES</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="registrarVenta.jsp" target="FramePrincipal" style="color: white;">Nueva Venta</a>
+                    </li>
                 </ul>
 
                 <div class="dropdown">
@@ -233,6 +237,8 @@
                 </div>
             </div>
         </nav>
+
+        
         <div class="m-4" style="height: 750px;">
             <iframe id="FramePrincipal" name="FramePrincipal" src="fondo.jsp" style="height:100%; width:100%; border:none"></iframe>
         </div>
@@ -253,7 +259,7 @@
             </div>
         </div>
         <script>
-        // Función para abrir el modal
+            // Función para abrir el modal
             function openModal() {
                 const modal = document.getElementById('loginModal');
                 if (modal) {
@@ -262,11 +268,11 @@
             }
 
             // Función para cerrar el modal al hacer clic fuera
-        //    function closeModalOutside(event) {
-        //        if (event.target === document.getElementById('loginModal')) {
+            //    function closeModalOutside(event) {
+            //        if (event.target === document.getElementById('loginModal')) {
             //           closeModal();
             //       }
-        //    }
+            //    }
 
             // Función para cerrar el modal
             function closeModal() {
