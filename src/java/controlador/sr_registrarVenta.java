@@ -52,9 +52,9 @@ public class sr_registrarVenta extends HttpServlet {
                     request.setAttribute("c", c);
                     break;
                 case "BuscarProducto":
-                    int id_producto = Integer.parseInt(request.getParameter("codigoproducto"));
-                    p.setId_producto(id_producto);
-                    p = pdao.ListarId(id_producto);
+                    int id = Integer.parseInt(request.getParameter("codigoproducto"));
+                    p.setId_producto(id);
+                    p = pdao.ListarId(id);
                     request.setAttribute("pr", p);
                     break;
                 default:

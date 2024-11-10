@@ -33,7 +33,7 @@
                             <div class="form-group d-flex">
                                 <div class="col-sm-6 d-flex">
                                     <input type="text" name="codigoproducto" class="form-control" placeholder="Codigo">
-                                    <button type="submit" name="accion" value="BuscarProducto" class="btn btn-outline-info">Buscar</button>
+                                   <input type="submit" name="accion" value="BuscarProducto" class="btn btn-outline-info">
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="Text" name="nombreproducto" value="${producto.getProducto}" class="form-control" placeholder="Producto">
@@ -44,14 +44,14 @@
                                     <input type="text" name="precio" class="form-control" placeholder="Q. 00.00">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="number" name="cant" class="form-control">
+                                    <input type="number" value="1" name="cant" class="form-control">
                                 </div>
                                 <div class="col-sm-3">
                                     <input type="Text" name="stock" class="form-control" placeholder="Stock">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="submit" name="accion" value="Agregar" class="btn btn-outline-info">
+                                <button type="submit" name="accion" value="Agregar" class="btn btn-outline-info">
                             </div>
                         </div>
                     </div>
